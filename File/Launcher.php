@@ -1,16 +1,16 @@
 <?php
 /**
-*   launch files with the associated application
-*   @author Christian Weiske <cweiske@php.net>
+*   Launch files with the associated application.
 *
-*   You may use this script the way you like
-*   in your own non-commercial programs.
-*   The only condition is that the author
-*   note and this text stays untouched.
+*   @author Christian Weiske <cweiske@php.net>
+*   @license GPL
 *
 *   usage:
-*   require_once('File/Launcher.php');
-*   launch_file_background('/data/docs/index.html');
+*   require_once 'File/Launcher.php';
+*   File_Launcher::launchBackground('/data/docs/index.html');
+*
+*   @todo:
+*   - use portland project if installed
 *
 *   Commands
 *   --------
@@ -24,148 +24,107 @@
 
 
 /**
-*   opens the appropriate application
-*   with the given file name and waits
-*   until it has exited
+*   Launches files with the associated application.
 *
-*   Note:
-*   On linux (gnome+kde) it will
-*   be automatically launched in the
-*   background, without any chance to
-*   wait
-*   - on windows you can switch between background and waiting
-*
-*   @param  string   the file to open
-*
-*   @return boolean  True if all was ok
-*/
-function launch_file( $strFilename)
-{
-    $fl    = new File_Launcher();
-    return $fl->launch_file( $strFilename, false);
-}//function launch_file( $strFilename)
-
-
-
-/**
-*   opens the appropriate application
-*   with the given file name and returns
-*   immediately
-*
-*   @param  string   the file to open
-*
-*   @return boolean  True if all was ok
-*/
-function launch_file_background( $strFilename)
-{
-    $fl    = new File_Launcher();
-    return $fl->launch_file( $strFilename, true);
-}//function launch_file_background( $strFilename)
-
-
-
-/**
-*   launches files with the associated application
-*   @author Christian Weiske <cweiske@php.net>
+*   @author Christian Weiske <cweiske@cweiske.de>
 */
 class File_Launcher
 {
     /**
-    *   operating system constants
+    *   Operating system constants.
     */
-    var $OS_LINUX       = 0;
-    var $OS_WINDOWS     = 1;
-    var $OS_MAC         = 2;
+    protected static $OS_LINUX       = 0;
+    protected static $OS_WINDOWS     = 1;
+    protected static $OS_MAC         = 2;
 
     /**
-    *   desktop environment constants
+    *   Desktop environment constants.
     */
-    var $DE_LINUX_KDE   = 0;
-    var $DE_LINUX_GNOME = 1;
+    protected static $DE_LINUX_KDE   = 0;
+    protected static $DE_LINUX_GNOME = 1;
 
     /**
-    *    The detected operating system 
-    *    @var    int
+    *   The detected operating system.
+    *   @var    int
     */
-    var $nCurrentOS     = null;
+    protected $nCurrentOS     = null;
 
     /**
-    *    The detected desktop environment
-    *    @var    int
+    *   The detected desktop environment.
+    *   @var    int
     */
-    var $nCurrentDE     = null;
+    protected $nCurrentDE     = null;
 
 
 
     /**
-    *    constructor
-    *    initializes the class variables
+    *   Initializes the class variables.
     */
-    function FileLauncher()
+    public function __construct()
     {
-        $this->nCurrentOS = $this->detect_os();
-    }//function FileLauncher()
+        $this->nCurrentOS = $this->detectOS();
+    }//public function __construct()
 
 
 
     /**
-    *    tries to detect the current operating system
-    *    @return    int        The current operating system constant
+    *   Tries to detect the current operating system.
+    *
+    *   @return    int        The current operating system constant
     */
-    function detect_os()
+    protected function detectOS()
     {
         if (strstr(PHP_OS, 'Linux')) {
-            $this->nCurrentDE = $this->detect_de($this->OS_LINUX);
-            return $this->OS_LINUX;
+            $this->nCurrentDE = $this->detectDE(self::$OS_LINUX);
+            return self::$OS_LINUX;
         } else if (strstr(PHP_OS, 'WIN')) {
-            return $this->OS_WINDOWS;
+            return self::$OS_WINDOWS;
         } else {
-            return $this->OS_MAC;
+            return self::$OS_MAC;
         }
         return false;
-    }//function detect_os()
+    }//protected function detectOS()
 
 
 
     /**
-    *    tries to detect the current desktop environment
+    *   Tries to detect the current desktop environment.
     *
-    *    @param  int  The operating system for which the desktop environment shall be detected
-    *    @return int  The current desktop environment constant
+    *   @param  int  The operating system for which the desktop environment shall be detected
+    *   @return int  The current desktop environment constant
     */
-    function detect_de($nCurrentOS)
+    protected function detectDE($nCurrentOS)
     {
         switch ($nCurrentOS)
         {
-            case $this->OS_LINUX:
+            case self::$OS_LINUX:
                 if (isset($_ENV['KDE_FULL_SESSION']) && $_ENV['KDE_FULL_SESSION'] == 'true') {
-                    return $this->DE_LINUX_KDE;
+                    return self::$DE_LINUX_KDE;
                 } else {
-                    return $this->DE_LINUX_GNOME;
+                    return self::$DE_LINUX_GNOME;
                 }
                 break;
         }
         return false;
-    }//function detect_de( $nCurrentOS)
+    }//protected function detectDE( $nCurrentOS)
 
 
 
     /**
-    *    returns the appropriate command to launch the
-    *    given file name, depending on the operating
-    *    system and the desktop environment
+    *   Returns the appropriate command to launch the
+    *   given file name, depending on the operating
+    *   system and the desktop environment.
     *
-    *    @param  string    The file to open
-    *    @param  boolean   True if the application should be run in the background
+    *   @param  string    The file to open
+    *   @param  boolean   True if the application should be run in the background
     *
-    *    @return string    The command to execute
+    *   @return string    The command to execute
     */
-    function get_command($strFilename, $bBackground)
+    protected function getCommand($strFilename, $bBackground)
     {
         $strBackground    = '';
-        switch ($this->nCurrentOS)
-        {
-            case $this->OS_WINDOWS:
+        switch ($this->nCurrentOS) {
+            case self::$OS_WINDOWS:
                 //the first "" is the title for the window
                 //automatically in background
                 if (!$bBackground) {
@@ -173,19 +132,19 @@ class File_Launcher
                 }
                 return 'start ""' . $strBackground . ' "' . $strFilename . '"';
                 break;
-            
-            case $this->OS_MAC:
+
+            case self::$OS_MAC:
                 return 'open "' . $strFilename . '"';
                 break;
-            
-            case $this->OS_LINUX:
+
+            case self::$OS_LINUX:
                 switch ($this->nCurrentDE)
                 {
-                    case $this->DE_LINUX_KDE:
+                    case self::$DE_LINUX_KDE:
                         //automatically in background
                         return 'kfmclient exec "' . $strFilename . '"';
                         break;
-                    case $this->DE_LINUX_GNOME:
+                    case self::$DE_LINUX_GNOME:
                         //automatically in background
                         return 'gnome-open "' . $strFilename . '"';
                         break;
@@ -198,32 +157,59 @@ class File_Launcher
                 trigger_error('FileLauncher: Unknown operating system "' . $this->nCurrentOS . '".', E_USER_NOTICE);
                 break;
         }
-    
+
         return false;
-    }//function get_command($strFilename)
+    }//protected function getCommand($strFilename)
 
 
 
     /**
-    *    launches a file
+    *   Launches a file.
     *
-    *    @param  string    The file to open
-    *    @param  boolean   True if the application should be run in the background
+    *   @param  string    The file to open
+    *   @param  boolean   True if the application should be run in the background
     *
-    *    @return boolean   True if all was ok, false if there has been a problem
+    *   @return boolean   True if all was ok, false if there has been a problem
     */
-    function launch_file($strFilename, $bBackground = true)
+    public function launch($strFilename, $bBackground = true)
     {
-        $strCommand  = $this->get_command($strFilename, $bBackground);
-        
+        $strCommand  = $this->getCommand($strFilename, $bBackground);
+
         $arOutput    = array();
         $nReturnVar  = 0;
         exec($strCommand, $arOutput, $nReturnVar);
-        
+
         return $nReturnVar == 0;
-    }//function launch_file($strFilename, $bBackground = true)
+    }//public function launch($strFilename, $bBackground = true)
 
 
+
+    /**
+    *   Convenience method to launch a file in background.
+    *
+    *   @param string   Filename to open
+    *   @return boolean True if all was ok
+    */
+    public static function launchBackground($strFilename)
+    {
+        $fl = new File_Launcher();
+        return $fl->launch($strFilename, true);
+    }//public static function launchBackground($strFilename)
+
+
+
+    /**
+    *   Convenience method to launch a file in foreground.
+    *   (Wait until the program is ended)
+    *
+    *   @param string   Filename to open
+    *   @return boolean True if all was ok
+    */
+    public static function launchFile($strFilename)
+    {
+        $fl = new File_Launcher();
+        return $fl->launch($strFilename, false);
+    }//public static function launchFile($strFilename)
 
 }//class FileLauncher
 ?>

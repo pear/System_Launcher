@@ -1,35 +1,103 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<package version="1.0">
-  <name>File_Launcher</name>
-  <summary>Launch files with associated applications</summary>
-  <description>Uses the associated applications for the file
-  type to display files</description>
-  <maintainers>
-    <maintainer>
-      <user>cweiske</user>
-      <name>Christian Weiske</name>
-      <email>cweiske@cweiske.de</email>
-      <role>lead</role>
-    </maintainer>
-  </maintainers>
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.5.0RC1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>File_Launcher</name>
+ <channel>gnope.org</channel>
+ <summary>Launch files with associated applications</summary>
+ <description>
+  Uses the associated applications for the file
+  type to display files.
+ </description>
+
+ <lead>
+  <name>Christian Weiske</name>
+  <user>cweiske</user>
+  <email>cweiske@cweiske.de</email>
+  <active>yes</active>
+ </lead>
+
+ <date>2006-11-20</date>
+ <time>19:24:31</time>
+
+ <version>
+  <release>0.5.0</release>
+  <api>0.5.0</api>
+ </version>
+
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+
+ <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+
+ <notes>
+  - Convert to PHP5
+  - Add some static methods
+  - Remove functions
+ </notes>
+
+ <contents>
+  <dir name="/">
+   <dir name="File">
+    <file name="Launcher.php" role="php"/>
+   </dir>
+   <dir name="examples">
+    <file name="openHtml.php" role="doc"/>
+    <file name="openURL.php" role="doc"/>
+    <file name="test.htm" role="doc"/>
+   </dir>
+  </dir>
+ </contents>
+
+ <dependencies>
+  <required>
+   <php>
+    <min>5.1.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.1</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease />
+
+ <changelog>
   <release>
-    <version>0.1.0</version>
-    <date>2004-12-31</date>
-    <license>PHP License</license>
-    <state>beta</state>
-    <notes>Initial release</notes>
-    <filelist>
-      <file role="php" baseinstalldir="File" md5sum="f8752ccef029dd7705c7589e6e2fbcd1" name="Launcher.php"/>
-    </filelist>
+   <version>
+    <release>0.5.0</release>
+    <api>0.5.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-11-20</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+    - Convert to PHP5
+    - Add some static methods
+    - Remove functions
+   </notes>
   </release>
-  <changelog>
-    <release>
-      <version>0.1.0</version>
-      <date>2004-12-31</date>
-      <state>beta</state>
-      <notes>Initial release
-</notes>
-    </release>
-  </changelog>
+
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-12-31</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+    Initial release
+   </notes>
+  </release>
+
+ </changelog>
 </package>
