@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>File_Launcher</name>
+  <summary>Launch files with associated applications</summary>
+  <description>Uses the associated applications for the file
+  type to display files</description>
+  <maintainers>
+    <maintainer>
+      <user>cweiske</user>
+      <name>Christian Weiske</name>
+      <email>cweiske@cweiske.de</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.1.0</version>
+    <date>2004-12-31</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>Initial release</notes>
+    <filelist>
+      <file role="php" baseinstalldir="File" md5sum="f8752ccef029dd7705c7589e6e2fbcd1" name="Launcher.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.1.0</version>
+      <date>2004-12-31</date>
+      <state>beta</state>
+      <notes>Initial release
+</notes>
+    </release>
+  </changelog>
+</package>
