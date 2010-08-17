@@ -12,7 +12,10 @@ Maintainer: olleolleolle
 
     <?php
     require_once 'File/Launcher.php';
+    // open a file
     File_Launcher::launchBackground('/data/docs/index.html');
+    // or a URL
+    File_Launcher::launchBackground('http://pear.php.net');
     ?>
 
 These commands are run:
