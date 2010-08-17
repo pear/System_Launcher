@@ -9,14 +9,12 @@
 *   require_once 'File/Launcher.php';
 *   File_Launcher::launchBackground('/data/docs/index.html');
 *
-*   @todo:
-*   - use portland project if installed
-*
 *   Commands
 *   --------
 *   Windows:        start <filename>
 *   Linux
 *       KDE         kfmclient exec <filename>
+*       Portland    xdg-open <filename>
 *       Gnome       gnome-open <filename>
 *   Mac OSX         open <filename>
 */
@@ -42,6 +40,7 @@ class File_Launcher
     */
     protected static $DE_LINUX_KDE   = 0;
     protected static $DE_LINUX_GNOME = 1;
+    protected static $DE_LINUX_PORTLAND = 2;
 
     /**
     *   The detected operating system.
@@ -85,7 +84,13 @@ class File_Launcher
         return false;
     }//protected function detectOS()
 
-
+    /**
+    * Tries to detect presence of Portland.
+    */
+    protected function _detectPortland() {
+        exec("which -s xdg-open", $skippedOutput, $status);
+        return $status === 0;
+    }
 
     /**
     *   Tries to detect the current desktop environment.
@@ -100,6 +105,8 @@ class File_Launcher
             case self::$OS_LINUX:
                 if (isset($_ENV['KDE_FULL_SESSION']) && $_ENV['KDE_FULL_SESSION'] == 'true') {
                     return self::$DE_LINUX_KDE;
+                } else if ($this->_detectPortland()) {
+                    return self::$DE_LINUX_PORTLAND;
                 } else {
                     return self::$DE_LINUX_GNOME;
                 }
@@ -147,6 +154,10 @@ class File_Launcher
                     case self::$DE_LINUX_GNOME:
                         //automatically in background
                         return 'gnome-open "' . $strFilename . '"';
+                        break;
+                    case self::$DE_LINUX_PORTLAND:
+                        //automatically in background
+                        return 'xdg-open "' . $strFilename . '"';
                         break;
                     default:
                         trigger_error('FileLauncher: Unknown linux desktop environment "' . $this->nCurrentDE . '".', E_USER_NOTICE);
