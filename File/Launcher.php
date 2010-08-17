@@ -109,10 +109,10 @@ class File_Launcher
         switch ($nCurrentOS)
         {
             case self::$OS_LINUX:
-                if (isset($_ENV['KDE_FULL_SESSION']) && $_ENV['KDE_FULL_SESSION'] == 'true') {
-                    return self::$DE_LINUX_KDE;
-                } else if ($this->_detectPortland()) {
+                if ($this->_detectPortland()) {
                     return self::$DE_LINUX_PORTLAND;
+                } else if (isset($_ENV['KDE_FULL_SESSION']) && $_ENV['KDE_FULL_SESSION'] == 'true') {
+                    return self::$DE_LINUX_KDE;
                 } else {
                     return self::$DE_LINUX_GNOME;
                 }
