@@ -63,34 +63,34 @@ class File_LauncherTest extends PHPUnit_Framework_TestCase
     {
         $this->launcher->switchToLinux();
         $this->launcher->switchToLinuxWithPortland();
-        $this->assertEquals('xdg-open "foo.txt"', $this->launcher->getCommand($this->file, true));
+        $this->assertEquals('xdg-open \'foo.txt\'', $this->launcher->getCommand($this->file, true));
     }
     
     public function testCommandOutputOnWindows()
     {
         $this->launcher->switchToWindows();
-        $this->assertEquals('start "" "foo.txt"', $this->launcher->getCommand($this->file, true));
-        $this->assertEquals('start "" /WAIT "foo.txt"', $this->launcher->getCommand($this->file, false));
+        $this->assertEquals('start "" \'foo.txt\'', $this->launcher->getCommand($this->file, true));
+        $this->assertEquals('start "" /WAIT \'foo.txt\'', $this->launcher->getCommand($this->file, false));
     }
     
     public function testCommandOutputOnMac()
     {
         $this->launcher->switchToMac();
-        $this->assertEquals('open "foo.txt"', $this->launcher->getCommand($this->file, true));
+        $this->assertEquals('open \'foo.txt\'', $this->launcher->getCommand($this->file, true));
     }
     
     public function testCommandOutputOnKde()
     {
         $this->launcher->switchToLinux();
         $this->launcher->switchToKde();
-        $this->assertEquals('kfmclient exec "foo.txt"', $this->launcher->getCommand($this->file, true));
+        $this->assertEquals('kfmclient exec \'foo.txt\'', $this->launcher->getCommand($this->file, true));
     }
     
     public function testCommandOutputOnGnome()
     {
         $this->launcher->switchToLinux();
         $this->launcher->switchToGnome();
-        $this->assertEquals('gnome-open "foo.txt"', $this->launcher->getCommand($this->file, true));
+        $this->assertEquals('gnome-open \'foo.txt\'', $this->launcher->getCommand($this->file, true));
     }
     
     public function testWhichWithSilentOption()

@@ -1,31 +1,37 @@
 <?php
 /**
-*   Launch files with the associated application.
-*
-*   @author Christian Weiske <cweiske@php.net>
-*   @license GPL
-*
-*   usage:
-*   require_once 'File/Launcher.php';
-*   File_Launcher::launchBackground('/data/docs/index.html');
-*
-*   Commands
-*   --------
-*   Windows:        start <filename>
-*   Linux
-*       KDE         kfmclient exec <filename>
-*       Portland    xdg-open <filename>
-*       Gnome       gnome-open <filename>
-*   Mac OSX         open <filename>
-*/
-
+ * Launch files with the associated application.
+ *
+ * usage:
+ *   require_once 'File/Launcher.php';
+ *   File_Launcher::launchBackground('/data/docs/index.html');
+ *
+ *   Commands
+ *   --------
+ *   Windows:        start <filename>
+ *   Linux
+ *       KDE         kfmclient exec <filename>
+ *       Portland    xdg-open <filename>
+ *       Gnome       gnome-open <filename>
+ *   Mac OSX         open <filename>
+ *
+ * @category   File
+ * @package    File_Launcher
+ * @author     Christian Weiske <cweiske@php.net>
+ * @author     Olle Jonsson <olle.jonsson@gmail.com>
+ * @copyright  1997-2005 Christian Weiske
+ * @license    http://www.gnu.org/licenses/lgpl.html LGPL
+ * @version    0.5.1
+ * @link       http://github.com/olleolleolle/File_Launcher
+ * @since      File available since Release 0.1.0
+ */
 
 
 /**
-*   Launches files with the associated application.
-*
-*   @author Christian Weiske <cweiske@cweiske.de>
-*/
+ * Launches files with the associated application.
+ *
+ * @author Christian Weiske <cweiske@cweiske.de>
+ */
 class File_Launcher
 {
     /**
@@ -61,7 +67,7 @@ class File_Launcher
     */
     public function __construct()
     {
-        $this->nCurrentOS = $this->detectOS(); // TODO: Do not do any significant work in constructor
+        $this->nCurrentOS = $this->detectOS();
     }//public function __construct()
 
 
@@ -137,11 +143,11 @@ class File_Launcher
                 if (!$bBackground) {
                     $strBackground    = ' /WAIT';
                 }
-                return 'start ""' . $strBackground . ' "' . $strFilename . '"';
+                return 'start ""' . $strBackground . ' ' . escapeshellarg($strFilename);
                 break;
 
             case self::$OS_MAC:
-                return 'open "' . $strFilename . '"';
+                return 'open ' . escapeshellarg($strFilename);
                 break;
 
             case self::$OS_LINUX:
@@ -149,15 +155,15 @@ class File_Launcher
                 {
                     case self::$DE_LINUX_KDE:
                         //automatically in background
-                        return 'kfmclient exec "' . $strFilename . '"';
+                        return 'kfmclient exec ' . escapeshellarg($strFilename);
                         break;
                     case self::$DE_LINUX_GNOME:
                         //automatically in background
-                        return 'gnome-open "' . $strFilename . '"';
+                        return 'gnome-open ' . escapeshellarg($strFilename);
                         break;
                     case self::$DE_LINUX_PORTLAND:
                         //automatically in background
-                        return 'xdg-open "' . $strFilename . '"';
+                        return 'xdg-open ' . escapeshellarg($strFilename);
                         break;
                     default:
                         trigger_error('FileLauncher: Unknown linux desktop environment "' . $this->nCurrentDE . '".', E_USER_NOTICE);
