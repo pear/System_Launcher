@@ -15,22 +15,30 @@
  *       Gnome       gnome-open <filename>
  *   Mac OSX         open <filename>
  *
- * @category   File
- * @package    File_Launcher
- * @author     Christian Weiske <cweiske@php.net>
- * @author     Olle Jonsson <olle.jonsson@gmail.com>
- * @copyright  1997-2005 Christian Weiske
- * @license    http://www.gnu.org/licenses/lgpl.html LGPL
- * @version    0.5.1
- * @link       http://github.com/olleolleolle/File_Launcher
- * @since      File available since Release 0.1.0
+ * PHP version 5
+ * 
+ * @category File
+ * @package  File_Launcher
+ * @author   Christian Weiske <cweiske@php.net>
+ * @author   Olle Jonsson <olle.jonsson@gmail.com>
+ * @license  http://www.gnu.org/licenses/lgpl.html LGPL
+ * @link     http://github.com/olleolleolle/File_Launcher
+ * @since    File available since Release 0.1.0
+ * @
  */
 
 
 /**
  * Launches files with the associated application.
  *
- * @author Christian Weiske <cweiske@cweiske.de>
+ * @category  File
+ * @package   File_Launcher
+ * @author    Christian Weiske <cweiske@php.net>
+ * @author    Olle Jonsson <olle.jonsson@gmail.com>
+ * @copyright 1997-2005 Christian Weiske
+ * @license   http://www.gnu.org/licenses/lgpl.html LGPL
+ * @version   Release: 0.5.1
+ * @link      http://github.com/olleolleolle/File_Launcher
  */
 class File_Launcher
 {
@@ -92,8 +100,11 @@ class File_Launcher
 
     /**
     * Tries to detect presence of Portland.
+    * 
+    * @return success
     */
-    protected function _detectPortland() {
+    protected function detectPortland()
+    {
         exec("which -s xdg-open", $skippedOutput, $status);
         return $status === 0;
     }
@@ -101,22 +112,26 @@ class File_Launcher
     /**
     *   Tries to detect the current desktop environment.
     *
-    *   @param  int  The operating system for which the desktop environment shall be detected
+    *   @param int $nCurrentOS The operating system for which the desktop
+    *   environment shall be detected
+    * 
     *   @return int  The current desktop environment constant
     */
     protected function detectDE($nCurrentOS)
     {
         switch ($nCurrentOS)
         {
-            case self::$OS_LINUX:
-                if ($this->_detectPortland()) {
-                    return self::$DE_LINUX_PORTLAND;
-                } else if (isset($_ENV['KDE_FULL_SESSION']) && $_ENV['KDE_FULL_SESSION'] == 'true') {
-                    return self::$DE_LINUX_KDE;
-                } else {
-                    return self::$DE_LINUX_GNOME;
-                }
-                break;
+        case self::$OS_LINUX:
+            if ($this->detectPortland()) {
+                return self::$DE_LINUX_PORTLAND;
+            } else if (isset($_ENV['KDE_FULL_SESSION']) 
+                && $_ENV['KDE_FULL_SESSION'] == 'true'
+            ) {
+                return self::$DE_LINUX_KDE;
+            } else {
+                return self::$DE_LINUX_GNOME;
+            }
+            break;
         }
         return false;
     }//protected function detectDE( $nCurrentOS)
@@ -128,65 +143,73 @@ class File_Launcher
     *   given file name, depending on the operating
     *   system and the desktop environment.
     *
-    *   @param  string    The file to open
-    *   @param  boolean   True if the application should be run in the background
+    *   @param string  $strFilename The file to open
+    *   @param boolean $bBackground True if the application should be run in the
+    *   background
     *
     *   @return string    The command to execute
     */
     protected function getCommand($strFilename, $bBackground)
     {
-        $strBackground    = '';
-        switch ($this->nCurrentOS) {
-            case self::$OS_WINDOWS:
-                //the first "" is the title for the window
+        $strBackground = '';
+        switch ($this->nCurrentOS)
+        {
+        case self::$OS_WINDOWS:
+            //the first "" is the title for the window
+            //automatically in background
+            if (!$bBackground) {
+                $strBackground    = ' /WAIT';
+            }
+            return 'start ""' . $strBackground . ' ' . escapeshellarg($strFilename);
+            break;
+
+        case self::$OS_MAC:
+            return 'open ' . escapeshellarg($strFilename);
+            break;
+
+        case self::$OS_LINUX:
+            switch ($this->nCurrentDE)
+            {
+            case self::$DE_LINUX_KDE:
                 //automatically in background
-                if (!$bBackground) {
-                    $strBackground    = ' /WAIT';
-                }
-                return 'start ""' . $strBackground . ' ' . escapeshellarg($strFilename);
+                return 'kfmclient exec ' . escapeshellarg($strFilename);
                 break;
-
-            case self::$OS_MAC:
-                return 'open ' . escapeshellarg($strFilename);
+            case self::$DE_LINUX_GNOME:
+                //automatically in background
+                return 'gnome-open ' . escapeshellarg($strFilename);
                 break;
-
-            case self::$OS_LINUX:
-                switch ($this->nCurrentDE)
-                {
-                    case self::$DE_LINUX_KDE:
-                        //automatically in background
-                        return 'kfmclient exec ' . escapeshellarg($strFilename);
-                        break;
-                    case self::$DE_LINUX_GNOME:
-                        //automatically in background
-                        return 'gnome-open ' . escapeshellarg($strFilename);
-                        break;
-                    case self::$DE_LINUX_PORTLAND:
-                        //automatically in background
-                        return 'xdg-open ' . escapeshellarg($strFilename);
-                        break;
-                    default:
-                        trigger_error('FileLauncher: Unknown linux desktop environment "' . $this->nCurrentDE . '".', E_USER_NOTICE);
-                        break;
-                }
+            case self::$DE_LINUX_PORTLAND:
+                //automatically in background
+                return 'xdg-open ' . escapeshellarg($strFilename);
                 break;
             default:
-                trigger_error('FileLauncher: Unknown operating system "' . $this->nCurrentOS . '".', E_USER_NOTICE);
+                trigger_error(
+                    'FileLauncher: Unknown linux desktop environment "' . 
+                    $this->nCurrentDE . '".', E_USER_NOTICE
+                );
                 break;
+            }
+            break;
+        default:
+            trigger_error(
+                'FileLauncher: Unknown operating system "' . 
+                $this->nCurrentOS . '".', E_USER_NOTICE
+            );
+            break;
         }
-
         return false;
     }//protected function getCommand($strFilename)
 
 
 
     /**
-    *   Launches a file.
+    * Launches a file.
     *
-    *   @param  string    The file to open
-    *   @param  boolean   True if the application should be run in the background
+    * @param string  $strFilename The file to open
+    * @param boolean $bBackground True if the application should be run in the
+    * background
     *
-    *   @return boolean   True if all was ok, false if there has been a problem
+    * @return boolean   True if all was ok, false if there has been a problem
     */
     public function launch($strFilename, $bBackground = true)
     {
@@ -204,7 +227,8 @@ class File_Launcher
     /**
     *   Convenience method to launch a file in background.
     *
-    *   @param string   Filename to open
+    *   @param string $strFilename Filename to open
+    *
     *   @return boolean True if all was ok
     */
     public static function launchBackground($strFilename)
@@ -219,7 +243,8 @@ class File_Launcher
     *   Convenience method to launch a file in foreground.
     *   (Wait until the program is ended)
     *
-    *   @param string   Filename to open
+    *   @param string $strFilename Filename to open
+    * 
     *   @return boolean True if all was ok
     */
     public static function launchFile($strFilename)
