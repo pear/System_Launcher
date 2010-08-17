@@ -62,7 +62,7 @@ class File_Launcher
     */
     public function __construct()
     {
-        $this->nCurrentOS = $this->detectOS();
+        $this->nCurrentOS = $this->detectOS(); // TODO: Do not do any significant work in constructor
     }//public function __construct()
 
 
