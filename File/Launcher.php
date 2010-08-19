@@ -3,8 +3,8 @@
  * Launch files with the associated application.
  *
  * usage:
- *   require_once 'File/Launcher.php';
- *   File_Launcher::launchBackground('/data/docs/index.html');
+ *   require_once 'System/Launcher.php';
+ *   System_Launcher::launchBackground('/data/docs/index.html');
  *
  *   Commands
  *   --------
@@ -17,8 +17,8 @@
  *
  * PHP version 5
  * 
- * @category File
- * @package  File_Launcher
+ * @category System
+ * @package  System_Launcher
  * @author   Christian Weiske <cweiske@php.net>
  * @author   Olle Jonsson <olle.jonsson@gmail.com>
  * @license  http://www.gnu.org/licenses/lgpl.html LGPL
@@ -44,8 +44,8 @@ require_once 'Launcher/Driver/Windows.php';
 /**
  * Launches files with the associated application.
  *
- * @category  File
- * @package   File_Launcher
+ * @category  System
+ * @package   System_Launcher
  * @author    Christian Weiske <cweiske@php.net>
  * @author    Olle Jonsson <olle.jonsson@gmail.com>
  * @copyright 1997-2005 Christian Weiske
@@ -53,7 +53,7 @@ require_once 'Launcher/Driver/Windows.php';
  * @version   Release: 0.5.1
  * @link      http://github.com/olleolleolle/File_Launcher
  */
-class File_Launcher
+class System_Launcher
 {
     /**
     * The driver for detected operating system.
@@ -73,11 +73,11 @@ class File_Launcher
     public function __construct()
     {
         $this->drivers = array(
-            new File_Launcher_Driver_Windows,
-            new File_Launcher_Driver_KDE,
-            new File_Launcher_Driver_GNOME,
-            new File_Launcher_Driver_Portland,
-            new File_Launcher_Driver_Mac
+            new System_Launcher_Driver_Windows,
+            new System_Launcher_Driver_KDE,
+            new System_Launcher_Driver_GNOME,
+            new System_Launcher_Driver_Portland,
+            new System_Launcher_Driver_Mac
         );
     }
 
@@ -94,7 +94,7 @@ class File_Launcher
                 return;
             }
         }
-        throw new File_Launcher_Exception("Unsupported OS.");
+        throw new System_Launcher_Exception("Unsupported OS.");
         
     }
 
@@ -138,7 +138,7 @@ class File_Launcher
      */
     public static function launchBackground($fileName)
     {
-        $fl = new File_Launcher();
+        $fl = new System_Launcher();
         return $fl->launch($fileName, true);
     }
 
@@ -152,7 +152,7 @@ class File_Launcher
      */
     public static function launchFile($fileName)
     {
-        $fl = new File_Launcher();
+        $fl = new System_Launcher();
         return $fl->launch($fileName, false);
     }
 

@@ -1,6 +1,6 @@
-# File_Launcher #
+# System_Launcher #
 
-File_Launcher is a simple opener of filenames and URLs.
+System_Launcher is a simple opener of filenames and URLs.
 
 It could help other PEAR command-line tools.
 
@@ -11,11 +11,11 @@ Maintainer: olleolleolle
 ## Usage ##
 
     <?php
-    require_once 'File/Launcher.php';
+    require_once 'System/Launcher.php';
     // open a file
-    File_Launcher::launchBackground('/data/docs/index.html');
+    System_Launcher::launchBackground('/data/docs/index.html');
     // or a URL
-    File_Launcher::launchBackground('http://pear.php.net');
+    System_Launcher::launchBackground('http://pear.php.net');
     ?>
 
 These commands are run:

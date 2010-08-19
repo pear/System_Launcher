@@ -3,8 +3,8 @@
  *
  * PHP version 5
  * 
- * @category File
- * @package  File_Launcher
+ * @category System
+ * @package  System_Launcher
  * @author   Christian Weiske <cweiske@php.net>
  * @author   Olle Jonsson <olle.jonsson@gmail.com>
  * @license  http://www.gnu.org/licenses/lgpl.html LGPL
