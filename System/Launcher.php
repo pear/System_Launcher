@@ -78,9 +78,9 @@ class System_Launcher
         if (is_null($drivers)) {
             $this->drivers = array(
                 new System_Launcher_Driver_Windows,
+                new System_Launcher_Driver_Portland,
                 new System_Launcher_Driver_KDE,
                 new System_Launcher_Driver_GNOME,
-                new System_Launcher_Driver_Portland,
                 new System_Launcher_Driver_Mac
             );
         } else {
