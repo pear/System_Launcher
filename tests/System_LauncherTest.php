@@ -113,6 +113,18 @@ class System_LauncherTest extends PHPUnit_Framework_TestCase
         exec("which pear", $output, $statusCode);
         $this->assertEquals(0, $statusCode);
     }
-
+    
+    /**
+     * Run without any passing drivers to see that the Exception is used.
+     * 
+     * @expectedException System_Launcher_Exception
+     * @return void
+     */
+    public function testMakeSureExceptionRunsOnBadPlatform()
+    {
+        $noDrivers = array();
+        $launcher = new System_Launcher($noDrivers);
+        $launcher->launch('');
+    }
 }
 ?>

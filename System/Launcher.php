@@ -69,16 +69,22 @@ class System_Launcher
 
     /**
      * Sets up a list of operating system checkers.
+     *
+     * @param array $drivers List of System_Launcher_Driver checkers.
      */
-    public function __construct()
+    public function __construct($drivers=null)
     {
-        $this->drivers = array(
-            new System_Launcher_Driver_Windows,
-            new System_Launcher_Driver_KDE,
-            new System_Launcher_Driver_GNOME,
-            new System_Launcher_Driver_Portland,
-            new System_Launcher_Driver_Mac
-        );
+        if (is_null($drivers)) {
+            $this->drivers = array(
+                new System_Launcher_Driver_Windows,
+                new System_Launcher_Driver_KDE,
+                new System_Launcher_Driver_GNOME,
+                new System_Launcher_Driver_Portland,
+                new System_Launcher_Driver_Mac
+            );
+        } else {
+            $this->drivers = $drivers;
+        }
     }
 
     /**
