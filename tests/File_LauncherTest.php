@@ -88,14 +88,14 @@ class File_LauncherFake extends File_Launcher
     /**
      * Helper, to expose as public
      * 
-     * @param string  $strFilename Filename
-     * @param boolean $bBackground Run in background?
+     * @param string  $fileName Filename
+     * @param boolean $runInBackground Run in background?
      * 
      * @return string
      */
-    public function getCommand($strFilename, $bBackground)
+    public function getCommand($fileName, $runInBackground)
     {
-        return parent::getCommand($strFilename, $bBackground);
+        return parent::getCommand($fileName, $runInBackground);
     }
 }
 

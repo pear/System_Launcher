@@ -44,6 +44,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
   - Added support for Portland
   - Added PHPUnit tests
   - License changed to LGPL
+  - Removed Hungarian notation
  </notes>
 
  <contents>

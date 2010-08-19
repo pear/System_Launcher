@@ -111,14 +111,14 @@ class File_Launcher
     /**
     *   Tries to detect the current desktop environment.
     *
-    *   @param int $nCurrentOS The operating system for which the desktop
+    *   @param int $currentOS The operating system for which the desktop
     *   environment shall be detected
     * 
     *   @return int  The current desktop environment constant
     */
-    protected function detectDE($nCurrentOS)
+    protected function detectDE($currentOS)
     {
-        switch ($nCurrentOS)
+        switch ($currentOS)
         {
         case self::$OS_LINUX:
             if ($this->detectPortland()) {
@@ -133,7 +133,7 @@ class File_Launcher
             break;
         }
         return false;
-    }//protected function detectDE( $nCurrentOS)
+    }//protected function detectDE( $currentOS)
 
 
 
@@ -142,13 +142,13 @@ class File_Launcher
     *   given file name, depending on the operating
     *   system and the desktop environment.
     *
-    *   @param string  $strFilename The file to open
-    *   @param boolean $bBackground True if the application should be run in the
+    *   @param string  $fileName The file to open
+    *   @param boolean $runInBackground True if the application should be run in the
     *   background
     *
     *   @return string    The command to execute
     */
-    protected function getCommand($strFilename, $bBackground)
+    protected function getCommand($fileName, $runInBackground)
     {
         $strBackground = '';
         switch ($this->nCurrentOS)
@@ -156,14 +156,14 @@ class File_Launcher
         case self::$OS_WINDOWS:
             //the first "" is the title for the window
             //automatically in background
-            if (!$bBackground) {
+            if (!$runInBackground) {
                 $strBackground    = ' /WAIT';
             }
-            return 'start ""' . $strBackground . ' ' . escapeshellarg($strFilename);
+            return 'start ""' . $strBackground . ' ' . escapeshellarg($fileName);
             break;
 
         case self::$OS_MAC:
-            return 'open ' . escapeshellarg($strFilename);
+            return 'open ' . escapeshellarg($fileName);
             break;
 
         case self::$OS_LINUX:
@@ -171,15 +171,15 @@ class File_Launcher
             {
             case self::$DE_LINUX_KDE:
                 //automatically in background
-                return 'kfmclient exec ' . escapeshellarg($strFilename);
+                return 'kfmclient exec ' . escapeshellarg($fileName);
                 break;
             case self::$DE_LINUX_GNOME:
                 //automatically in background
-                return 'gnome-open ' . escapeshellarg($strFilename);
+                return 'gnome-open ' . escapeshellarg($fileName);
                 break;
             case self::$DE_LINUX_PORTLAND:
                 //automatically in background
-                return 'xdg-open ' . escapeshellarg($strFilename);
+                return 'xdg-open ' . escapeshellarg($fileName);
                 break;
             default:
                 trigger_error(
@@ -197,44 +197,44 @@ class File_Launcher
             break;
         }
         return false;
-    }//protected function getCommand($strFilename)
+    }//protected function getCommand($fileName)
 
 
 
     /**
     * Launches a file.
     *
-    * @param string  $strFilename The file to open
-    * @param boolean $bBackground True if the application should be run in the
+    * @param string  $fileName The file to open
+    * @param boolean $runInBackground True if the application should be run in the
     * background
     *
     * @return boolean   True if all was ok, false if there has been a problem
     */
-    public function launch($strFilename, $bBackground = true)
+    public function launch($fileName, $runInBackground = true)
     {
-        $strCommand  = $this->getCommand($strFilename, $bBackground);
+        $strCommand  = $this->getCommand($fileName, $runInBackground);
 
         $arOutput    = array();
         $nReturnVar  = 0;
         exec($strCommand, $arOutput, $nReturnVar);
 
         return $nReturnVar == 0;
-    }//public function launch($strFilename, $bBackground = true)
+    }//public function launch($fileName, $runInBackground = true)
 
 
 
     /**
     *   Convenience method to launch a file in background.
     *
-    *   @param string $strFilename Filename to open
+    *   @param string $fileName Filename to open
     *
     *   @return boolean True if all was ok
     */
-    public static function launchBackground($strFilename)
+    public static function launchBackground($fileName)
     {
         $fl = new File_Launcher();
-        return $fl->launch($strFilename, true);
-    }//public static function launchBackground($strFilename)
+        return $fl->launch($fileName, true);
+    }//public static function launchBackground($fileName)
 
 
 
@@ -242,15 +242,15 @@ class File_Launcher
     *   Convenience method to launch a file in foreground.
     *   (Wait until the program is ended)
     *
-    *   @param string $strFilename Filename to open
+    *   @param string $fileName Filename to open
     * 
     *   @return boolean True if all was ok
     */
-    public static function launchFile($strFilename)
+    public static function launchFile($fileName)
     {
         $fl = new File_Launcher();
-        return $fl->launch($strFilename, false);
-    }//public static function launchFile($strFilename)
+        return $fl->launch($fileName, false);
+    }//public static function launchFile($fileName)
 
 }//class FileLauncher
 ?>
