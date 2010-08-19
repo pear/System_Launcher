@@ -18,89 +18,6 @@ require_once 'PHPUnit/Framework.php';
 require_once dirname(__FILE__).'/../File/Launcher.php';
 
 /**
- * File_Launcher with test-friendly methods.
- * 
- * @category File
- * @package  File_Launcher
- * @author   Christian Weiske <cweiske@php.net>
- * @author   Olle Jonsson <olle.jonsson@gmail.com>
- * @license  http://www.gnu.org/licenses/lgpl.html LGPL
- * @link     http://github.com/olleolleolle/File_Launcher
- * @since    File available since Release 0.5.1
- */
-class File_LauncherFake extends File_Launcher
-{
-    /**
-     * Helper
-     * 
-     * @return void
-     */
-    public function switchToWindows()
-    {
-        $this->currentOS = self::$OS_WINDOWS;
-    }
-    /**
-     * Helper
-     * 
-     * @return void
-     */
-    public function switchToMac()
-    {
-        $this->currentOS = self::$OS_MAC;
-    }
-    /**
-     * Helper
-     * 
-     * @return void
-     */
-    public function switchToLinux()
-    {
-        $this->currentOS = self::$OS_LINUX;
-    }
-    /**
-     * Helper
-     * 
-     * @return void
-     */
-    public function switchToKde()
-    {
-        $this->currentDE = self::$DE_LINUX_KDE;
-    }
-    /**
-     * Helper
-     * 
-     * @return void
-     */
-    public function switchToGnome()
-    {
-        $this->currentDE = self::$DE_LINUX_GNOME;
-    }
-    /**
-     * Helper
-     * 
-     * @return void
-     */
-    public function switchToLinuxWithPortland()
-    {
-        $this->currentDE = self::$DE_LINUX_PORTLAND;
-    }
-    
-    /**
-     * Helper, to expose as public
-     * 
-     * @param string  $fileName Filename
-     * @param boolean $runInBackground Run in background?
-     * 
-     * @return string
-     */
-    public function getCommand($fileName, $runInBackground)
-    {
-        return parent::getCommand($fileName, $runInBackground);
-    }
-}
-
-
-/**
  * Test class for File_Launcher.
  * 
  * @category File
@@ -125,7 +42,7 @@ class File_LauncherTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->launcher = new File_LauncherFake;
+        $this->launcher = new File_Launcher;
         $this->file = 'foo.txt';
     }
 
@@ -136,10 +53,9 @@ class File_LauncherTest extends PHPUnit_Framework_TestCase
      */
     public function testCommandOutputOnPortland()
     {
-        $this->launcher->switchToLinux();
-        $this->launcher->switchToLinuxWithPortland();
+        $driver = new File_Launcher_Portland;
         $this->assertEquals(
-            'xdg-open \'foo.txt\'', $this->launcher->getCommand($this->file, true)
+            'xdg-open %s', $driver->getCommand(true)
         );
     }
     
@@ -150,14 +66,14 @@ class File_LauncherTest extends PHPUnit_Framework_TestCase
      */
     public function testCommandOutputOnWindows()
     {
-        $this->launcher->switchToWindows();
+        $driver = new File_Launcher_Windows;
         $this->assertEquals(
-            'start "" \'foo.txt\'',
-            $this->launcher->getCommand($this->file, true)
+            'start "" /WAIT %s',
+            $driver->getCommand(true)
         );
         $this->assertEquals(
-            'start "" /WAIT \'foo.txt\'', 
-            $this->launcher->getCommand($this->file, false)
+            'start "" %s',
+            $driver->getCommand(false)
         );
     }
     
@@ -168,10 +84,10 @@ class File_LauncherTest extends PHPUnit_Framework_TestCase
      */
     public function testCommandOutputOnMac()
     {
-        $this->launcher->switchToMac();
+        $driver = new File_Launcher_Mac;
         $this->assertEquals(
-            'open \'foo.txt\'',
-            $this->launcher->getCommand($this->file, true)
+            'open %s',
+            $driver->getCommand(true)
         );
     }
     
@@ -182,11 +98,10 @@ class File_LauncherTest extends PHPUnit_Framework_TestCase
      */
     public function testCommandOutputOnKde()
     {
-        $this->launcher->switchToLinux();
-        $this->launcher->switchToKde();
+        $driver = new File_Launcher_KDE;
         $this->assertEquals(
-            'kfmclient exec \'foo.txt\'',
-            $this->launcher->getCommand($this->file, true)
+            'kfmclient exec %s',
+            $driver->getCommand(true)
         );
     }
     /**
@@ -196,11 +111,10 @@ class File_LauncherTest extends PHPUnit_Framework_TestCase
      */
     public function testCommandOutputOnGnome()
     {
-        $this->launcher->switchToLinux();
-        $this->launcher->switchToGnome();
+        $driver = new File_Launcher_GNOME;
         $this->assertEquals(
-            'gnome-open \'foo.txt\'',
-            $this->launcher->getCommand($this->file, true)
+            'gnome-open %s',
+            $driver->getCommand(true)
         );
     }
     /**
