@@ -29,4 +29,4 @@ These commands are run:
 
 # TODO
 
-Rename project to System_Launcher.
+(the empty list)
