@@ -25,8 +25,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <active>yes</active>
  </contributor>
 
- <date>2010-08-17</date>
- <time>11:42:01</time>
+ <date>2010-08-19</date>
+ <time>19:00:01</time>
 
  <version>
   <release>0.5.1</release>
@@ -45,12 +45,25 @@ http://pear.php.net/dtd/package-2.0.xsd">
   - Added PHPUnit tests
   - License changed to LGPL
   - Removed Hungarian notation
+  - Package structure standardized
+  - Using a pluggable driver architecture
  </notes>
 
  <contents>
   <dir name="/">
    <dir name="File">
     <file name="Launcher.php" role="php"/>
+    <dir name="Launcher" role="php">
+      <dir name="Driver" role="php">
+        <file name="GNOME.php" role="php"/>
+        <file name="KDE.php" role="php"/>
+        <file name="Mac.php" role="php"/>
+        <file name="Portland.php" role="php"/>
+        <file name="Windows.php" role="php"/>
+      </dir>
+      <file name="Driver.php" role="php"/>
+      <file name="Exception.php" role="php"/>
+    </dir>
    </dir>
    <dir name="examples">
     <file name="openHtml.php" role="doc"/>
