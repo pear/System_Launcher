@@ -45,8 +45,7 @@ class File_Launcher_Driver_Mac implements File_Launcher_Driver
      */
     public function applies()
     {
-        // How can we tell it's a Mac?
-        return true;
+        return strstr(PHP_OS, 'Darwin');
     }
 }
 
