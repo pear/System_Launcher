@@ -16,10 +16,14 @@ Maintainer: olleolleolle
 
     <?php
     require_once 'System/Launcher.php';
+
+    $launcher = new System_Launcher;
+
     // open a file
-    System_Launcher::launchBackground('/data/docs/index.html');
+    $launcher->launch('/data/docs/index.html', true);
+    
     // or a URL
-    System_Launcher::launchBackground('http://pear.php.net');
+    $launcher->launch('http://pear.php.net', true);
     ?>
 
 These commands are run:
