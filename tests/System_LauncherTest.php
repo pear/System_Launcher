@@ -19,6 +19,8 @@
 require_once 'PHPUnit/Framework.php';
 
 require_once dirname(__FILE__).'/../System/Launcher.php';
+require_once dirname(__FILE__).'/System_Launcher_Driver_GoodCd.php';
+require_once dirname(__FILE__).'/System_Launcher_Driver_BadEmpty.php';
 
 /**
  * Test class for System_Launcher.
@@ -129,5 +131,33 @@ class System_LauncherTest extends PHPUnit_Framework_TestCase
         $launcher = new System_Launcher($noDrivers);
         $launcher->launch('');
     }
+    
+    /**
+     * Just running "cd" on any platform should work.
+     * 
+     * @return void
+     */
+    public function testLoopingOverGoodCommand()
+    {
+        $drivers = array(new System_Launcher_Driver_GoodCd);
+        $launcher = new System_Launcher($drivers);
+        $launcher->launch('');
+    }
+
+    
+    /**
+     * Pass a driver that has an empty command, watch it break.
+     * 
+     * @expectedException System_Launcher_Exception
+     * @return void
+     */
+    public function testLoopingOverEmptyCommandShouldThrow()
+    {
+        $drivers = array(new System_Launcher_Driver_BadEmpty);
+        $launcher = new System_Launcher($drivers);
+        $launcher->launch('');
+    }
+    
+    
 }
 ?>

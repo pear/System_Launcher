@@ -42,6 +42,11 @@ class System_Launcher_AllTests
     
     // {{{ main()
         
+    /**
+     * Test suite launcher for System_Launcher
+     * 
+     * @return void
+     */
     public static function main()
     {
         PHPUnit_TextUI_TestRunner::run(self::suite());

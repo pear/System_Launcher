@@ -105,7 +105,6 @@ class System_Launcher
             }
         }
         throw new System_Launcher_Exception("Unsupported OS.");
-        
     }
 
     /**
@@ -120,7 +119,11 @@ class System_Launcher
     protected function getCommand($runInBackground)
     {
         $this->detectOS();
-        return $this->os->getCommand($runInBackground);
+        $commandTemplate = $this->os->getCommand($runInBackground);
+        if ($commandTemplate === '') {
+            throw new System_Launcher_Exception('Command must not be empty.');
+        }
+        return $commandTemplate;
     }
 
     /**
@@ -138,10 +141,5 @@ class System_Launcher
         exec($command, $skippedOutput, $status);
         return $status === 0;
     }
-
 }
-
-
-
-
 ?>
