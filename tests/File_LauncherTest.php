@@ -53,7 +53,7 @@ class File_LauncherTest extends PHPUnit_Framework_TestCase
      */
     public function testCommandOutputOnPortland()
     {
-        $driver = new File_Launcher_Portland;
+        $driver = new File_Launcher_Driver_Portland;
         $this->assertEquals(
             'xdg-open %s', $driver->getCommand(true)
         );
@@ -66,7 +66,7 @@ class File_LauncherTest extends PHPUnit_Framework_TestCase
      */
     public function testCommandOutputOnWindows()
     {
-        $driver = new File_Launcher_Windows;
+        $driver = new File_Launcher_Driver_Windows;
         $this->assertEquals(
             'start "" /WAIT %s',
             $driver->getCommand(true)
@@ -84,7 +84,7 @@ class File_LauncherTest extends PHPUnit_Framework_TestCase
      */
     public function testCommandOutputOnMac()
     {
-        $driver = new File_Launcher_Mac;
+        $driver = new File_Launcher_Driver_Mac;
         $this->assertEquals(
             'open %s',
             $driver->getCommand(true)
@@ -98,7 +98,7 @@ class File_LauncherTest extends PHPUnit_Framework_TestCase
      */
     public function testCommandOutputOnKde()
     {
-        $driver = new File_Launcher_KDE;
+        $driver = new File_Launcher_Driver_KDE;
         $this->assertEquals(
             'kfmclient exec %s',
             $driver->getCommand(true)
@@ -111,7 +111,7 @@ class File_LauncherTest extends PHPUnit_Framework_TestCase
      */
     public function testCommandOutputOnGnome()
     {
-        $driver = new File_Launcher_GNOME;
+        $driver = new File_Launcher_Driver_GNOME;
         $this->assertEquals(
             'gnome-open %s',
             $driver->getCommand(true)
