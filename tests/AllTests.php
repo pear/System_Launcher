@@ -15,7 +15,7 @@
 
 require_once 'PHPUnit/Framework.php';
  
-require_once 'File_LauncherTest.php';
+require_once 'System_LauncherTest.php';
  
 /**
  * PHPUnit tests for File_Launcher
@@ -33,13 +33,13 @@ require_once 'File_LauncherTest.php';
 class AllTests
 {
     /**
-     * Test suite for File_Launcher
+     * Test suite for System_Launcher
      * 
      * @return Full test suite
      */
     public static function suite()
     {
-        return new PHPUnit_Framework_TestSuite('File_LauncherTest');
+        return new PHPUnit_Framework_TestSuite('System_LauncherTest');
     }
 }
 ?>

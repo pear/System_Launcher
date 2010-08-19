@@ -15,10 +15,10 @@
 
 require_once 'PHPUnit/Framework.php';
 
-require_once dirname(__FILE__).'/../File/Launcher.php';
+require_once dirname(__FILE__).'/../System/Launcher.php';
 
 /**
- * Test class for File_Launcher.
+ * Test class for System_Launcher.
  * 
  * @category System
  * @package  System_Launcher
@@ -28,24 +28,8 @@ require_once dirname(__FILE__).'/../File/Launcher.php';
  * @link     http://github.com/olleolleolle/File_Launcher
  * @since    File available since Release 0.5.1
  */
-class File_LauncherTest extends PHPUnit_Framework_TestCase
+class System_LauncherTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @var File_Launcher
-     */
-    protected $launcher;
-    
-    /**
-     * Create a fake to use, and its data
-     *
-     * @return void
-     */
-    protected function setUp()
-    {
-        $this->launcher = new File_Launcher;
-        $this->file = 'foo.txt';
-    }
-
     /**
      * Test for Portland
      *
@@ -53,7 +37,7 @@ class File_LauncherTest extends PHPUnit_Framework_TestCase
      */
     public function testCommandOutputOnPortland()
     {
-        $driver = new File_Launcher_Driver_Portland;
+        $driver = new System_Launcher_Driver_Portland;
         $this->assertEquals(
             'xdg-open %s', $driver->getCommand(true)
         );
@@ -66,7 +50,7 @@ class File_LauncherTest extends PHPUnit_Framework_TestCase
      */
     public function testCommandOutputOnWindows()
     {
-        $driver = new File_Launcher_Driver_Windows;
+        $driver = new System_Launcher_Driver_Windows;
         $this->assertEquals(
             'start "" /WAIT %s',
             $driver->getCommand(true)
@@ -84,7 +68,7 @@ class File_LauncherTest extends PHPUnit_Framework_TestCase
      */
     public function testCommandOutputOnMac()
     {
-        $driver = new File_Launcher_Driver_Mac;
+        $driver = new System_Launcher_Driver_Mac;
         $this->assertEquals(
             'open %s',
             $driver->getCommand(true)
@@ -98,7 +82,7 @@ class File_LauncherTest extends PHPUnit_Framework_TestCase
      */
     public function testCommandOutputOnKde()
     {
-        $driver = new File_Launcher_Driver_KDE;
+        $driver = new System_Launcher_Driver_KDE;
         $this->assertEquals(
             'kfmclient exec %s',
             $driver->getCommand(true)
@@ -111,7 +95,7 @@ class File_LauncherTest extends PHPUnit_Framework_TestCase
      */
     public function testCommandOutputOnGnome()
     {
-        $driver = new File_Launcher_Driver_GNOME;
+        $driver = new System_Launcher_Driver_GNOME;
         $this->assertEquals(
             'gnome-open %s',
             $driver->getCommand(true)
