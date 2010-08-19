@@ -12,6 +12,7 @@
  * @link     http://github.com/olleolleolle/File_Launcher
  * @since    File available since Release 0.1.0
  */
-require_once 'File/Launcher.php';
-File_Launcher::launchBackground(dirname(__FILE__) . '/test.htm');
+require_once 'System/Launcher.php';
+$launcher = new System_Launcher;
+$launcher->launch(dirname(__FILE__) . '/test.htm', true);
 ?>

@@ -3,126 +3,143 @@
 http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
- <name>System_Launcher</name>
- <channel>pear.php.net</channel>
- <summary>Launch files with associated applications</summary>
- <description>
-  Uses the associated applications for the file
-  type to display files.
- </description>
+  <name>System_Launcher</name>
+  <channel>pear.php.net</channel>
+  <summary>Launch files with associated applications</summary>
+  <description>
+  Uses the associated applications for the file type to display files.
+  </description>
 
- <lead>
-  <name>Christian Weiske</name>
-  <user>cweiske</user>
-  <email>cweiske@cweiske.de</email>
-  <active>yes</active>
- </lead>
+  <lead>
+    <name>Christian Weiske</name>
+    <user>cweiske</user>
+    <email>cweiske@cweiske.de</email>
+    <active>no</active>
+  </lead>
 
- <contributor>
-  <name>Olle Jonsson</name>
-  <user>olleolleolle</user>
-  <email>olle.jonsson@gmail.com</email>
-  <active>yes</active>
- </contributor>
+  <contributor>
+    <name>Olle Jonsson</name>
+    <user>olleolleolle</user>
+    <email>olle.jonsson@gmail.com</email>
+    <active>yes</active>
+  </contributor>
 
- <date>2010-08-19</date>
- <time>19:00:01</time>
+  <date>2010-08-19</date>
+  <time>19:00:01</time>
 
- <version>
-  <release>0.5.2</release>
-  <api>0.5.0</api>
- </version>
+  <version>
+    <release>0.5.3</release>
+    <api>0.5.3</api>
+  </version>
 
- <stability>
-  <release>beta</release>
-  <api>beta</api>
- </stability>
+  <stability>
+    <release>beta</release>
+    <api>beta</api>
+  </stability>
 
- <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+  <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
 
- <notes>
-  - Added support for Portland
-  - Added PHPUnit tests
-  - License changed to LGPL
-  - Removed Hungarian notation
-  - Package structure standardized
-  - Using a pluggable driver architecture
- </notes>
+  <notes>
+  - BC break: removed the static convenience methods.
+  </notes>
 
- <contents>
-  <dir name="/">
-   <dir name="System">
-    <file name="Launcher.php" role="php"/>
-    <dir name="Launcher" role="php">
-      <dir name="Driver" role="php">
-        <file name="GNOME.php" role="php"/>
-        <file name="KDE.php" role="php"/>
-        <file name="Mac.php" role="php"/>
-        <file name="Portland.php" role="php"/>
-        <file name="Windows.php" role="php"/>
+  <contents>
+    <dir name="/">
+      <dir name="System">
+        <file name="Launcher.php" role="php"/>
+        <dir name="Launcher" role="php">
+          <dir name="Driver" role="php">
+            <file name="GNOME.php" role="php"/>
+            <file name="KDE.php" role="php"/>
+            <file name="Mac.php" role="php"/>
+            <file name="Portland.php" role="php"/>
+            <file name="Windows.php" role="php"/>
+          </dir>
+          <file name="Driver.php" role="php"/>
+          <file name="Exception.php" role="php"/>
+        </dir>
       </dir>
-      <file name="Driver.php" role="php"/>
-      <file name="Exception.php" role="php"/>
+      <dir name="examples">
+        <file name="openHtml.php" role="doc"/>
+        <file name="openURL.php" role="doc"/>
+        <file name="test.htm" role="doc"/>
+      </dir>
+      <dir name="tests">
+        <file name="AllTests.php" role="php"/>
+        <file name="System_LauncherTest.php" role="php"/>
+      </dir>
     </dir>
-   </dir>
-   <dir name="examples">
-    <file name="openHtml.php" role="doc"/>
-    <file name="openURL.php" role="doc"/>
-    <file name="test.htm" role="doc"/>
-   </dir>
-   <dir name="tests">
-     <file name="AllTests.php" role="php"/>
-     <file name="System_LauncherTest.php" role="php"/>
-   </dir>
-  </dir>
- </contents>
+  </contents>
 
- <dependencies>
-  <required>
-   <php>
-    <min>5.1.0</min>
-   </php>
-   <pearinstaller>
-    <min>1.4.1</min>
-   </pearinstaller>
-  </required>
- </dependencies>
- <phprelease />
+  <dependencies>
+    <required>
+      <php>
+        <min>5.1.0</min>
+      </php>
+      <pearinstaller>
+        <min>1.4.1</min>
+      </pearinstaller>
+    </required>
+  </dependencies>
 
- <changelog>
-  <release>
-   <version>
-    <release>0.5.0</release>
-    <api>0.5.0</api>
-   </version>
-   <stability>
-    <release>beta</release>
-    <api>beta</api>
-   </stability>
-   <date>2006-11-20</date>
-   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
-   <notes>
-    - Convert to PHP5
-    - Add some static methods
-    - Remove functions
-   </notes>
-  </release>
+  <phprelease />
 
-  <release>
-   <version>
-    <release>0.1.0</release>
-    <api>0.1.0</api>
-   </version>
-   <stability>
-    <release>beta</release>
-    <api>beta</api>
-   </stability>
-   <date>2004-12-31</date>
-   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
-   <notes>
-    Initial release
-   </notes>
-  </release>
+  <changelog>
+   
+    <release>
+      <version>
+        <release>0.5.2</release>
+        <api>0.5.1</api>
+      </version>
+      <stability>
+        <release>beta</release>
+        <api>beta</api>
+      </stability>
+      <date>2010-08-19</date>
+      <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+      <notes>
+      - Added support for Portland
+      - Added PHPUnit tests
+      - License changed to LGPL
+      - Removed Hungarian notation
+      - Package structure standardized
+      - Using a pluggable driver architecture
+      </notes>
+    </release>
+   
+    <release>
+      <version>
+        <release>0.5.0</release>
+        <api>0.5.0</api>
+      </version>
+      <stability>
+        <release>beta</release>
+        <api>beta</api>
+      </stability>
+      <date>2006-11-20</date>
+      <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+      <notes>
+        - Convert to PHP5
+        - Add some static methods
+        - Remove functions
+      </notes>
+    </release>
 
- </changelog>
+    <release>
+      <version>
+        <release>0.1.0</release>
+        <api>0.1.0</api>
+      </version>
+      <stability>
+        <release>beta</release>
+        <api>beta</api>
+      </stability>
+      <date>2004-12-31</date>
+      <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+      <notes>
+        Initial release
+      </notes>
+    </release>
+
+  </changelog>
 </package>

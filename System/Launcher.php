@@ -4,7 +4,8 @@
  *
  * usage:
  *   require_once 'System/Launcher.php';
- *   System_Launcher::launchBackground('/data/docs/index.html');
+ *   $launcher = new System_Launcher;
+ *   $launcher->launch('/data/docs/index.html', true);
  *
  *   Commands
  *   --------
@@ -133,33 +134,6 @@ class System_Launcher
         $command = sprintf($this->getCommand($runInBackground), $fileName);
         exec($command, $skippedOutput, $status);
         return $status === 0;
-    }
-
-    /**
-     * Convenience method to launch a file in background.
-     *
-     * @param string $fileName Filename to open
-     *
-     * @return boolean True if all was ok
-     */
-    public static function launchBackground($fileName)
-    {
-        $fl = new System_Launcher();
-        return $fl->launch($fileName, true);
-    }
-
-    /**
-     * Convenience method to launch a file in foreground.
-     * (Wait until the program is ended)
-     *
-     * @param string $fileName Filename to open
-     * 
-     * @return boolean True if all was ok
-     */
-    public static function launchFile($fileName)
-    {
-        $fl = new System_Launcher();
-        return $fl->launch($fileName, false);
     }
 
 }
