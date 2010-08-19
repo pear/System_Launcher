@@ -48,9 +48,6 @@ class System_Launcher_Driver_Portland implements File_Launcher_Driver
      */
     public function applies()
     {
-        if (!strstr(PHP_OS, 'Linux')) {
-            return false;
-        }
         exec("which -s xdg-open", $skippedOutput, $status);
         return $status === 0;
     }
