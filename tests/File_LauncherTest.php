@@ -37,7 +37,7 @@ class File_LauncherFake extends File_Launcher
      */
     public function switchToWindows()
     {
-        $this->nCurrentOS = self::$OS_WINDOWS;
+        $this->currentOS = self::$OS_WINDOWS;
     }
     /**
      * Helper
@@ -46,7 +46,7 @@ class File_LauncherFake extends File_Launcher
      */
     public function switchToMac()
     {
-        $this->nCurrentOS = self::$OS_MAC;
+        $this->currentOS = self::$OS_MAC;
     }
     /**
      * Helper
@@ -55,7 +55,7 @@ class File_LauncherFake extends File_Launcher
      */
     public function switchToLinux()
     {
-        $this->nCurrentOS = self::$OS_LINUX;
+        $this->currentOS = self::$OS_LINUX;
     }
     /**
      * Helper
@@ -64,7 +64,7 @@ class File_LauncherFake extends File_Launcher
      */
     public function switchToKde()
     {
-        $this->nCurrentDE = self::$DE_LINUX_KDE;
+        $this->currentDE = self::$DE_LINUX_KDE;
     }
     /**
      * Helper
@@ -73,7 +73,7 @@ class File_LauncherFake extends File_Launcher
      */
     public function switchToGnome()
     {
-        $this->nCurrentDE = self::$DE_LINUX_GNOME;
+        $this->currentDE = self::$DE_LINUX_GNOME;
     }
     /**
      * Helper
@@ -82,7 +82,7 @@ class File_LauncherFake extends File_Launcher
      */
     public function switchToLinuxWithPortland()
     {
-        $this->nCurrentDE = self::$DE_LINUX_PORTLAND;
+        $this->currentDE = self::$DE_LINUX_PORTLAND;
     }
     
     /**

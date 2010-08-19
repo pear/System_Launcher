@@ -26,6 +26,9 @@
  * @since    File available since Release 0.1.0
  */
 
+/** PEAR exceptions */
+require_once 'PEAR/Exception.php';
+
 
 /**
  * Launches files with the associated application.
@@ -59,13 +62,13 @@ class File_Launcher
     *   The detected operating system.
     *   @var    int
     */
-    protected $nCurrentOS     = null;
+    protected $currentOS     = null;
 
     /**
     *   The detected desktop environment.
     *   @var    int
     */
-    protected $nCurrentDE     = null;
+    protected $currentDE     = null;
 
 
 
@@ -74,7 +77,7 @@ class File_Launcher
     */
     public function __construct()
     {
-        $this->nCurrentOS = $this->detectOS();
+        $this->currentOS = $this->detectOS();
     }//public function __construct()
 
 
@@ -87,7 +90,7 @@ class File_Launcher
     protected function detectOS()
     {
         if (strstr(PHP_OS, 'Linux')) {
-            $this->nCurrentDE = $this->detectDE(self::$OS_LINUX);
+            $this->currentDE = $this->detectDE(self::$OS_LINUX);
             return self::$OS_LINUX;
         } else if (strstr(PHP_OS, 'WIN')) {
             return self::$OS_WINDOWS;
@@ -150,49 +153,49 @@ class File_Launcher
     */
     protected function getCommand($fileName, $runInBackground)
     {
-        $strBackground = '';
-        switch ($this->nCurrentOS)
+        $backgroundOption = '';
+        switch ($this->currentOS)
         {
         case self::$OS_WINDOWS:
             //the first "" is the title for the window
             //automatically in background
             if (!$runInBackground) {
-                $strBackground    = ' /WAIT';
+                $backgroundOption    = ' /WAIT';
             }
-            return 'start ""' . $strBackground . ' ' . escapeshellarg($fileName);
+            return sprintf('start ""%s %s', $backgroundOption, escapeshellarg($fileName));
             break;
 
         case self::$OS_MAC:
-            return 'open ' . escapeshellarg($fileName);
+            return sprintf('open %s', escapeshellarg($fileName));
             break;
 
         case self::$OS_LINUX:
-            switch ($this->nCurrentDE)
+            switch ($this->currentDE)
             {
             case self::$DE_LINUX_KDE:
                 //automatically in background
-                return 'kfmclient exec ' . escapeshellarg($fileName);
+                return sprintf('kfmclient exec %s', escapeshellarg($fileName));
                 break;
             case self::$DE_LINUX_GNOME:
                 //automatically in background
-                return 'gnome-open ' . escapeshellarg($fileName);
+                return sprintf('gnome-open %s', escapeshellarg($fileName));
                 break;
             case self::$DE_LINUX_PORTLAND:
                 //automatically in background
-                return 'xdg-open ' . escapeshellarg($fileName);
+                return sprintf('xdg-open %s', escapeshellarg($fileName));
                 break;
             default:
-                trigger_error(
+                throw new PEAR_Exception(
                     'FileLauncher: Unknown linux desktop environment "' . 
-                    $this->nCurrentDE . '".', E_USER_NOTICE
+                    $this->currentDE . '".', E_USER_NOTICE
                 );
                 break;
             }
             break;
         default:
-            trigger_error(
+            throw new PEAR_Exception(
                 'FileLauncher: Unknown operating system "' . 
-                $this->nCurrentOS . '".', E_USER_NOTICE
+                $this->currentOS . '".', E_USER_NOTICE
             );
             break;
         }
@@ -212,13 +215,9 @@ class File_Launcher
     */
     public function launch($fileName, $runInBackground = true)
     {
-        $strCommand  = $this->getCommand($fileName, $runInBackground);
-
-        $arOutput    = array();
-        $nReturnVar  = 0;
-        exec($strCommand, $arOutput, $nReturnVar);
-
-        return $nReturnVar == 0;
+        $command = $this->getCommand($fileName, $runInBackground);
+        exec($command, $skippedOutput, $status);
+        return $status === 0;
     }//public function launch($fileName, $runInBackground = true)
 
 
