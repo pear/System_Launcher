@@ -26,3 +26,16 @@ These commands are run:
   * With Portland:    `xdg-open <filename>`
   * Gnome:       `gnome-open <filename>`
 *   Mac OS X:         `open <filename>`
+
+# TODO
+
+Remove Hungarian notation.
+
+Use exceptions instead of triggering errors.
+
+Rename to System_Launcher.
+
+I'd avoid doing work in the constructor (it makes unit testing harder).
+
+Split different kinds of OS into driver type classes.
+
