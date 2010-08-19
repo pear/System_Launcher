@@ -62,6 +62,12 @@ class File_Launcher
     protected $os;
 
     /**
+    * Ordered list of drivers to test.
+    * @var array
+    */
+    protected $drivers;
+
+    /**
      * Sets up a list of operating system checkers.
      */
     public function __construct()
