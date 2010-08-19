@@ -37,3 +37,4 @@ Avoid doing work in the constructor (it makes unit testing harder).
 
 Split different kinds of OS into driver type classes.
 
+Detect GNOME-ness using `$GNOME_DESKTOP_SESSION_ID`
