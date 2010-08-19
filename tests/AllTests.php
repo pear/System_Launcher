@@ -1,6 +1,9 @@
 <?php
+
+/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
 /**
- * PHPUnit test suite for File_Launcher
+ * PHPUnit test suite for System_Launcher
  *
  * PHP version 5
  * 
@@ -13,12 +16,16 @@
  * @since    File available since Release 0.1.0
  */
 
+if (!defined('PHPUnit_MAIN_METHOD')) {
+    define('PHPUnit_MAIN_METHOD', 'System_Launcher_AllTests::main');
+}
+
 require_once 'PHPUnit/Framework.php';
- 
-require_once 'System_LauncherTest.php';
+require_once 'PHPUnit/TextUI/TestRunner.php';
+require_once dirname(__FILE__) . '/System_LauncherTest.php';
  
 /**
- * PHPUnit tests for File_Launcher
+ * PHPUnit tests for System_Launcher
  *
  * PHP version 5
  * 
@@ -30,8 +37,19 @@ require_once 'System_LauncherTest.php';
  * @link     http://github.com/olleolleolle/File_Launcher
  * @since    File available since Release 0.1.0
  */
-class AllTests
+class System_Launcher_AllTests
 {
+    
+    // {{{ main()
+        
+    public static function main()
+    {
+        PHPUnit_TextUI_TestRunner::run(self::suite());
+    }
+    
+    // }}}
+    // {{{ suite()
+    
     /**
      * Test suite for System_Launcher
      * 
@@ -41,5 +59,11 @@ class AllTests
     {
         return new PHPUnit_Framework_TestSuite('System_LauncherTest');
     }
+    
+    // }}}
+}
+
+if (PHPUnit_MAIN_METHOD == 'System_Launcher_AllTests::main') {
+    System_Launcher_AllTests::main();
 }
 ?>
