@@ -27,5 +27,6 @@ require_once 'PEAR/Exception.php';
  * @link     http://github.com/olleolleolle/File_Launcher
  * @since    File available since Release 0.1.0
  */
-class System_Launcher_Exception extends PEAR_Exception {
+class System_Launcher_Exception extends PEAR_Exception
+{
 }
