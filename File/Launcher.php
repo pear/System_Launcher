@@ -45,14 +45,14 @@ require_once 'PEAR/Exception.php';
 class File_Launcher
 {
     /**
-    *   The detected operating system.
-    *   @var    int
+    * The driver for detected operating system.
+    * @var    object
     */
     protected $os;
 
     /**
-    *   Initializes the class variables.
-    */
+     * Sets up a list of operating system checkers.
+     */
     public function __construct()
     {
         $this->drivers = array(
@@ -82,12 +82,10 @@ class File_Launcher
     }//protected function detectOS()
 
     /**
-     *   Returns the appropriate command to launch the
-     *   given file name, depending on the operating
-     *   system and the desktop environment.
+     * Returns the appropriate command to launch the given file name,
+     * depending on the operating system and the desktop environment.
      *
-     *   @param string  $fileName The file to open
-     *   @param boolean $runInBackground True if the application should be run in the
+     * @param boolean $runInBackground True if the application should be run in the
      *   background
      *
      *   @return string    The command to execute
@@ -101,7 +99,7 @@ class File_Launcher
     /**
      * Launches a file.
      *
-     * @param string  $fileName The file to open
+     * @param string  $fileName        The file to open
      * @param boolean $runInBackground True if the application should be run in the
      * background
      *
@@ -113,8 +111,6 @@ class File_Launcher
         exec($command, $skippedOutput, $status);
         return $status === 0;
     }//public function launch($fileName, $runInBackground = true)
-
-
 
     /**
      * Convenience method to launch a file in background.
@@ -128,8 +124,6 @@ class File_Launcher
         $fl = new File_Launcher();
         return $fl->launch($fileName, true);
     }//public static function launchBackground($fileName)
-
-
 
     /**
      * Convenience method to launch a file in foreground.
@@ -148,61 +142,145 @@ class File_Launcher
 }//class FileLauncher
 
 
-interface File_Launcher_Driver {
-    /** What's the command to launch things? */
+/**
+ * Interface for OS and desktop command sources.
+ *
+ * @category File
+ * @package  File_Launcher
+ * @author   Christian Weiske <cweiske@php.net>
+ * @author   Olle Jonsson <olle.jonsson@gmail.com>
+ * @license  http://www.gnu.org/licenses/lgpl.html LGPL
+ * @link     http://github.com/olleolleolle/File_Launcher
+ * @since    File available since Release 0.1.0 
+ */
+interface File_Launcher_Driver
+{
+    /**
+     * What is the opener command? 
+     *
+     * @param boolean $runInBackground Should this window be a background
+     * window?
+     * 
+     * @return Command template usable with sprintf
+     */
     public function getCommand($runInBackground);
-    /** Does this apply to the current operating system? */
+    /**
+     * Does this apply to the current operating system?
+     *
+     * @return true if this class applies to current OS
+     */
     public function applies();
 }
 
-class File_Launcher_Windows implements File_Launcher_Driver {
+/**
+ * Windows driver
+ * 
+ * @category File
+ * @package  File_Launcher
+ * @author   Christian Weiske <cweiske@php.net>
+ * @author   Olle Jonsson <olle.jonsson@gmail.com>
+ * @license  http://www.gnu.org/licenses/lgpl.html LGPL
+ * @link     http://github.com/olleolleolle/File_Launcher
+ * @since    File available since Release 0.1.0
+ */
+class File_Launcher_Windows implements File_Launcher_Driver
+{
     /**
+     * Returns a command string template usable with sprintf.
+     * 
+     * @param boolean $runInBackground Set to true to open in background
+     * 
      * @return Command string template to open something
      */
-    public function getCommand($runInBackground) {
-        if ($runInBackground)
+    public function getCommand($runInBackground)
+    {
+        if ($runInBackground) {
             return 'start "" /WAIT %s';
-        else
+        } else {
             return 'start "" %s';
+        }
     }
     
     /**
-     * @return Does this apply to the current operating system?
+     * Returns true if this class applies to the current OS.
+     * 
+     * @return boolean
      */
-    public function applies() {
+    public function applies()
+    {
         return strstr(PHP_OS, 'WIN');
     }
 }
 
-class File_Launcher_Mac implements File_Launcher_Driver {
+/**
+ * Mac OS X driver
+ * 
+ * @category File
+ * @package  File_Launcher
+ * @author   Christian Weiske <cweiske@php.net>
+ * @author   Olle Jonsson <olle.jonsson@gmail.com>
+ * @license  http://www.gnu.org/licenses/lgpl.html LGPL
+ * @link     http://github.com/olleolleolle/File_Launcher
+ * @since    File available since Release 0.1.0
+ */
+class File_Launcher_Mac implements File_Launcher_Driver
+{
     /**
+     * Returns a command string template usable with sprintf.
+     * 
+     * @param boolean $runInBackground Unused
+     * 
      * @return Command string template to open something
      */
-    public function getCommand($runInBackground) {
+    public function getCommand($runInBackground)
+    {
         return 'open %s';
     }
     
     /**
-     * @return Does this apply to the current operating system?
+     * Returns true if this class applies to the current OS.
+     * 
+     * @return boolean
      */
-    public function applies() {
+    public function applies()
+    {
         // How can we tell it's a Mac?
         return true;
     }
 }
 
-class File_Launcher_Portland implements File_Launcher_Driver {
+/**
+ * Linux driver for desktops that use the Portland project to open files.
+ * 
+ * @category File
+ * @package  File_Launcher
+ * @author   Christian Weiske <cweiske@php.net>
+ * @author   Olle Jonsson <olle.jonsson@gmail.com>
+ * @license  http://www.gnu.org/licenses/lgpl.html LGPL
+ * @link     http://github.com/olleolleolle/File_Launcher
+ * @since    File available since Release 0.1.0
+ */
+class File_Launcher_Portland implements File_Launcher_Driver
+{
     /**
+     * Returns a command string template usable with sprintf.
+     * 
+     * @param boolean $runInBackground Unused
+     * 
      * @return Command string template to open something
      */
-    public function getCommand($runInBackground) {
+    public function getCommand($runInBackground)
+    {
         return 'xdg-open %s';
     }
     
     /**
-     * @return Does this apply to the current operating system?
+     * Returns true if this class applies to the current OS.
+     * 
+     * @return boolean
      */
-    public function applies() {
+    public function applies()
+    {
         if (!strstr(PHP_OS, 'Linux')) {
             return false;
         }
@@ -211,18 +289,38 @@ class File_Launcher_Portland implements File_Launcher_Driver {
     }
 }
 
-class File_Launcher_KDE implements File_Launcher_Driver {
+/**
+ * KDE driver
+ *  
+ * @category File
+ * @package  File_Launcher
+ * @author   Christian Weiske <cweiske@php.net>
+ * @author   Olle Jonsson <olle.jonsson@gmail.com>
+ * @license  http://www.gnu.org/licenses/lgpl.html LGPL
+ * @link     http://github.com/olleolleolle/File_Launcher
+ * @since    File available since Release 0.1.0
+ */
+class File_Launcher_KDE implements File_Launcher_Driver
+{
     /**
+     * Returns a command string template usable with sprintf.
+     * 
+     * @param boolean $runInBackground Unused
+     * 
      * @return Command string template to open something
      */
-    public function getCommand($runInBackground) {
+    public function getCommand($runInBackground)
+    {
         return 'kfmclient exec %s';
     }
     
     /**
-     * @return Does this apply to the current operating system?
+     * Returns true if this class applies to the current OS.
+     * 
+     * @return boolean
      */
-    public function applies() {
+    public function applies()
+    {
         return strstr(PHP_OS, 'Linux') && 
             (isset($_ENV['KDE_FULL_SESSION']) &&
             $_ENV['KDE_FULL_SESSION'] == 'true'
@@ -230,19 +328,38 @@ class File_Launcher_KDE implements File_Launcher_Driver {
     }
 }
 
-class File_Launcher_GNOME implements File_Launcher_Driver {
+/**
+ * GNOME driver
+ * 
+ * @category File
+ * @package  File_Launcher
+ * @author   Christian Weiske <cweiske@php.net>
+ * @author   Olle Jonsson <olle.jonsson@gmail.com>
+ * @license  http://www.gnu.org/licenses/lgpl.html LGPL
+ * @link     http://github.com/olleolleolle/File_Launcher
+ * @since    File available since Release 0.1.0
+ */
+class File_Launcher_GNOME implements File_Launcher_Driver
+{
     /**
+     * Returns a command string template usable with sprintf.
+     * 
+     * @param boolean $runInBackground Unused
+     * 
      * @return Command string template to open something
      */
-    public function getCommand($runInBackground) {
+    public function getCommand($runInBackground)
+    {
         return 'gnome-open %s';
     }
     
     /**
-     * @return Does this apply to the current operating system?
+     * Returns true if this class applies to the current OS.
+     * 
+     * @return boolean
      */
-    public function applies() {
-        
+    public function applies()
+    {
         return strstr(PHP_OS, 'Linux') &&
             isset($_ENV['GNOME_DESKTOP_SESSION_ID']);
     }
