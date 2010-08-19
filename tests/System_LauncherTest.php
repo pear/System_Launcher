@@ -106,11 +106,11 @@ class System_LauncherTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function testWhichWithSilentOption()
+    public function testWhichWithReturnedStatusCodes()
     {
-        exec("which -s ThisCommandReallyDoesNotExist", $output, $statusCode);
+        exec("which ThisCommandReallyDoesNotExist", $output, $statusCode);
         $this->assertNotEquals(0, $statusCode);
-        exec("which -s pear", $output, $statusCode);
+        exec("which pear", $output, $statusCode);
         $this->assertEquals(0, $statusCode);
     }
 
