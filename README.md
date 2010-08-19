@@ -2,7 +2,11 @@
 
 System_Launcher is a simple opener of filenames and URLs.
 
-It could help other PEAR command-line tools.
+It could help other PEAR command-line tools, such as a mythical
+`pear report-bug` command, which could open a web page with a
+form, pre-filled with useful values (by just using the query-
+string) when the user has entered for which PEAR package to
+report a bug.
 
 Original author: cweiske
 
