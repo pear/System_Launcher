@@ -17,15 +17,15 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <active>no</active>
   </lead>
 
-  <contributor>
+  <lead>
     <name>Olle Jonsson</name>
     <user>olleolleolle</user>
     <email>olle.jonsson@gmail.com</email>
     <active>yes</active>
-  </contributor>
+  </lead>
 
-  <date>2010-08-19</date>
-  <time>19:00:01</time>
+  <date>2010-09-01</date>
+  <time>15:00:00</time>
 
   <version>
     <release>0.5.3</release>
