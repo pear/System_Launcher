@@ -21,7 +21,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 }
 
 require_once 'PHPUnit/TextUI/TestRunner.php';
-require_once dirname(__FILE__) . '/System_LauncherTest.php';
+require_once 'System_LauncherTest.php';
  
 /**
  * PHPUnit tests for System_Launcher

@@ -17,8 +17,8 @@
  */
 
 require_once 'System/Launcher.php';
-require_once dirname(__FILE__).'/System_Launcher_Driver_GoodCd.php';
-require_once dirname(__FILE__).'/System_Launcher_Driver_BadEmpty.php';
+require_once 'System_Launcher_Driver_GoodCd.php';
+require_once 'System_Launcher_Driver_BadEmpty.php';
 
 /**
  * Test class for System_Launcher.

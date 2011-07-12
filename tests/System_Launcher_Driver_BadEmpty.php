@@ -17,7 +17,7 @@
  */
 
 /** Driver base class */
-require_once dirname(dirname(__FILE__)) . '/System/Launcher/Driver.php';
+require_once 'System/Launcher/Driver.php';
 
 /**
  * Fake testing driver
