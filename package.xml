@@ -24,12 +24,12 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <active>yes</active>
   </lead>
 
-  <date>2010-09-01</date>
-  <time>15:00:00</time>
+  <date>2011-07-12</date>
+  <time>15:15:00</time>
 
   <version>
-    <release>0.5.3</release>
-    <api>0.5.3</api>
+    <release>0.5.4</release>
+    <api>0.5.4</api>
   </version>
 
   <stability>
@@ -40,7 +40,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
 
   <notes>
-  - BC break: removed the static convenience methods.
+  - PHPUnit configuration added
   </notes>
 
   <contents>
@@ -66,7 +66,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
       </dir>
       <dir name="tests">
         <file name="AllTests.php" role="php"/>
+        <file name="bootstrap.php" role="php"/>
+        <file name="phpunit.xml" role="php"/>
         <file name="System_LauncherTest.php" role="php"/>
+        <file name="System_Launcher_Driver_BadEmpty.php" role="php"/>
+        <file name="System_Launcher_Driver_GoodCd.php" role="php"/>
       </dir>
     </dir>
   </contents>
@@ -85,7 +89,36 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <phprelease />
 
   <changelog>
-   
+    <release>
+      <version>
+        <release>0.5.4</release>
+        <api>0.5.3</api>
+      </version>
+      <stability>
+        <release>beta</release>
+        <api>beta</api>
+      </stability>
+      <date>2011-07-12</date>
+      <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+      <notes>
+	  - PHPUnit configuration added
+      </notes>
+    </release>
+    <release>
+      <version>
+        <release>0.5.3</release>
+        <api>0.5.3</api>
+      </version>
+      <stability>
+        <release>beta</release>
+        <api>beta</api>
+      </stability>
+      <date>2010-09-01</date>
+      <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+      <notes>
+	  - BC break: removed the static convenience methods.
+      </notes>
+    </release>
     <release>
       <version>
         <release>0.5.2</release>
