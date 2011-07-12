@@ -1,6 +1,7 @@
 # System_Launcher #
 
-System_Launcher is a simple opener of filenames and URLs.
+System_Launcher is a simple opener of filenames and URLs, based on the
+operating system's conveniences for that.
 
 It could help other PEAR command-line tools, such as a mythical
 `pear report-bug` command, which could open a web page with a
@@ -37,4 +38,4 @@ These commands are run:
 
 # TODO
 
-(the empty list)
+* Describe use-cases more carefully
