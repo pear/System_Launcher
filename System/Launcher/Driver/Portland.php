@@ -55,5 +55,3 @@ class System_Launcher_Driver_Portland implements File_Launcher_Driver
         return $status === 0;
     }
 }
-
-?>

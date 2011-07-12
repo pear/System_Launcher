@@ -142,4 +142,3 @@ class System_Launcher
         return $status === 0;
     }
 }
-?>

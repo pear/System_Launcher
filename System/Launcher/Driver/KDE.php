@@ -56,4 +56,3 @@ class System_Launcher_Driver_KDE implements File_Launcher_Driver
         );
     }
 }
-?>

@@ -58,4 +58,3 @@ class System_Launcher_Driver_Windows implements File_Launcher_Driver
         return strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
     }
 }
-?>

@@ -54,4 +54,3 @@ class System_Launcher_Driver_GNOME implements File_Launcher_Driver
         return isset($_ENV['GNOME_DESKTOP_SESSION_ID']);
     }
 }
-?>

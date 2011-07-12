@@ -71,4 +71,3 @@ class System_Launcher_AllTests
 if (PHPUnit_MAIN_METHOD == 'System_Launcher_AllTests::main') {
     System_Launcher_AllTests::main();
 }
-?>

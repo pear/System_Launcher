@@ -45,4 +45,3 @@ interface File_Launcher_Driver
      */
     public function applies();
 }
-?>
