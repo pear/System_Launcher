@@ -48,6 +48,7 @@ class System_Launcher_Driver_Portland implements File_Launcher_Driver
      * Returns true if this class applies to the current OS.
      * 
      * @return boolean
+     * @codeCoverageIgnore
      */
     public function applies()
     {

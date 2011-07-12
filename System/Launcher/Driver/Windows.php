@@ -52,6 +52,7 @@ class System_Launcher_Driver_Windows implements File_Launcher_Driver
      * Returns true if this class applies to the current OS.
      * 
      * @return boolean
+     * @codeCoverageIgnore
      */
     public function applies()
     {

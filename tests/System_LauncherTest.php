@@ -44,6 +44,12 @@ class System_LauncherFake extends System_Launcher {
  */
 class System_LauncherTest extends PHPUnit_Framework_TestCase
 {
+    
+    public function testConstructLauncher() {
+        $launcher = new System_Launcher();
+        $this->assertObjectHasAttribute('drivers', $launcher);
+    }
+    
     /**
      * Test for Portland
      *
