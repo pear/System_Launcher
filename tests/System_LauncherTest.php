@@ -20,6 +20,17 @@ require_once 'System/Launcher.php';
 require_once 'System_Launcher_Driver_GoodCd.php';
 require_once 'System_Launcher_Driver_BadEmpty.php';
 
+
+class System_LauncherFake extends System_Launcher {
+    /**
+     * Make it a little bit more testable
+     */
+    public function detectOS() {
+        parent::detectOS();
+    }
+    
+}
+
 /**
  * Test class for System_Launcher.
  * 
@@ -92,6 +103,22 @@ class System_LauncherTest extends PHPUnit_Framework_TestCase
         );
     }
     /**
+     * Test for KDE Linux identification
+     *
+     * @return void
+     */
+    public function testAppliesOnKde() {
+        try {
+    		$_ENV['KDE_FULL_SESSION'] = 'true'; // This is what KDE looks like
+            $launcher = new System_LauncherFake(array(new System_Launcher_Driver_KDE));
+            $launcher->detectOs();
+        } catch (System_Launcher_Exception $e) {
+            $this->fail();
+        }
+    }
+    
+    
+    /**
      * Test for GNOME Linux output
      *
      * @return void
@@ -104,6 +131,22 @@ class System_LauncherTest extends PHPUnit_Framework_TestCase
             $driver->getCommand(true)
         );
     }
+    
+    /**
+     * Test for GNOME Linux identification
+     *
+     * @return void
+     */
+    public function testAppliesOnGnome() {
+        try {
+    		$_ENV['GNOME_DESKTOP_SESSION_ID'] = 1; // This is what GNOME looks like
+            $launcher = new System_LauncherFake(array(new System_Launcher_Driver_GNOME));
+            $launcher->detectOs();
+        } catch (System_Launcher_Exception $e) {
+            $this->fail();
+        }
+    }
+    
     /**
      * Test to explain how "which" works.
      *
