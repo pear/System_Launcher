@@ -12,7 +12,7 @@
  * @author   Christian Weiske <cweiske@php.net>
  * @author   Olle Jonsson <olle.jonsson@gmail.com>
  * @license  http://www.gnu.org/licenses/lgpl.html LGPL
- * @link     http://github.com/olleolleolle/File_Launcher
+ * @link     http://github.com/olleolleolle/System_Launcher
  * @since    File available since Release 0.1.0
  */
 
@@ -24,7 +24,7 @@
  * @author   Christian Weiske <cweiske@php.net>
  * @author   Olle Jonsson <olle.jonsson@gmail.com>
  * @license  http://www.gnu.org/licenses/lgpl.html LGPL
- * @link     http://github.com/olleolleolle/File_Launcher
+ * @link     http://github.com/olleolleolle/System_Launcher
  * @since    File available since Release 0.1.0 
  */
 interface File_Launcher_Driver
