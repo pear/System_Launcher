@@ -65,10 +65,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
         <file name="test.htm" role="doc"/>
       </dir>
       <dir name="tests">
-        <file name="AllTests.php" role="php"/>
+        <file name="AllTests.php" role="test"/>
         <file name="bootstrap.php" role="php"/>
         <file name="phpunit.xml" role="php"/>
-        <file name="System_LauncherTest.php" role="php"/>
+        <file name="System_LauncherTest.php" role="test"/>
         <file name="System_Launcher_Driver_BadEmpty.php" role="php"/>
         <file name="System_Launcher_Driver_GoodCd.php" role="php"/>
       </dir>
