@@ -12,7 +12,7 @@
  * @author   Christian Weiske <cweiske@php.net>
  * @author   Olle Jonsson <olle.jonsson@gmail.com>
  * @license  http://www.gnu.org/licenses/lgpl.html LGPL
- * @link     http://github.com/olleolleolle/File_Launcher
+ * @link     http://github.com/olleolleolle/System_Launcher
  * @since    File available since Release 0.1.0
  */
 
@@ -28,7 +28,7 @@ require_once 'System_Launcher_Driver_BadEmpty.php';
  * @author   Christian Weiske <cweiske@php.net>
  * @author   Olle Jonsson <olle.jonsson@gmail.com>
  * @license  http://www.gnu.org/licenses/lgpl.html LGPL
- * @link     http://github.com/olleolleolle/File_Launcher
+ * @link     http://github.com/olleolleolle/System_Launcher
  * @since    File available since Release 0.5.1
  */
 class System_LauncherTest extends PHPUnit_Framework_TestCase
@@ -155,7 +155,15 @@ class System_LauncherTest extends PHPUnit_Framework_TestCase
         $launcher = new System_Launcher($drivers);
         $launcher->launch('');
     }
+
+	public function testMakingSureExceptionExists() {
+		try {
+			throw new System_Launcher_Exception('foo');
+			$this->fail();
+		} catch (System_Launcher_Exception $e) {
+			$this->assertEquals('foo', $e->getMessage());
+		}
+	}
     
     
 }
-?>
