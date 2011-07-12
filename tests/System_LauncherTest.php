@@ -16,8 +16,6 @@
  * @since    File available since Release 0.1.0
  */
 
-require_once 'PHPUnit/Framework.php';
-
 require_once dirname(__FILE__).'/../System/Launcher.php';
 require_once dirname(__FILE__).'/System_Launcher_Driver_GoodCd.php';
 require_once dirname(__FILE__).'/System_Launcher_Driver_BadEmpty.php';
