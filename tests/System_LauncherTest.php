@@ -45,7 +45,7 @@ class System_LauncherFake extends System_Launcher {
 class System_LauncherTest extends PHPUnit_Framework_TestCase
 {
     
-    public function testConstructLauncher() {
+    public function testConstructLauncherShouldWork() {
         $launcher = new System_Launcher();
         $this->assertObjectHasAttribute('drivers', $launcher);
     }
@@ -55,7 +55,7 @@ class System_LauncherTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function testCommandOutputOnPortland()
+    public function testPortlandCommandOutputOnShouldBeRegular()
     {
         $driver = new System_Launcher_Driver_Portland;
         $this->assertEquals(
@@ -68,7 +68,7 @@ class System_LauncherTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function testCommandOutputOnWindows()
+    public function testWindowsCommandOutputShouldTakeBackgroundIntoAccount()
     {
         $driver = new System_Launcher_Driver_Windows;
         $this->assertEquals(
@@ -86,7 +86,7 @@ class System_LauncherTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function testCommandOutputOnMac()
+    public function testMacCommandOutputShouldBeRegular()
     {
         $driver = new System_Launcher_Driver_Mac;
         $this->assertEquals(
@@ -100,7 +100,7 @@ class System_LauncherTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function testCommandOutputOnKde()
+    public function testKdeCommandOutputShouldBeRegular()
     {
         $driver = new System_Launcher_Driver_KDE;
         $this->assertEquals(
@@ -113,7 +113,7 @@ class System_LauncherTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function testAppliesOnKde() {
+    public function testKdeOperatingSystemShouldBeDetectable() {
         try {
     		$_ENV['KDE_FULL_SESSION'] = 'true'; // This is what KDE looks like
             $launcher = new System_LauncherFake(array(new System_Launcher_Driver_KDE));
@@ -129,7 +129,7 @@ class System_LauncherTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function testCommandOutputOnGnome()
+    public function testGnomeCommandOutputShouldBeRegular()
     {
         $driver = new System_Launcher_Driver_GNOME;
         $this->assertEquals(
@@ -143,7 +143,7 @@ class System_LauncherTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function testAppliesOnGnome() {
+    public function testGnomeOperatingSystemShouldBeDetectable() {
         try {
     		$_ENV['GNOME_DESKTOP_SESSION_ID'] = 1; // This is what GNOME looks like
             $launcher = new System_LauncherFake(array(new System_Launcher_Driver_GNOME));
@@ -158,7 +158,7 @@ class System_LauncherTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function testWhichWithReturnedStatusCodes()
+    public function testWhichCommandShouldReturnZeroInAllCases()
     {
         exec("which ThisCommandReallyDoesNotExist", $output, $statusCode);
         $this->assertNotEquals(0, $statusCode);
@@ -172,7 +172,7 @@ class System_LauncherTest extends PHPUnit_Framework_TestCase
      * @expectedException System_Launcher_Exception
      * @return void
      */
-    public function testMakeSureExceptionRunsOnBadPlatform()
+    public function testBadPlatformShouldThrowException()
     {
         $noDrivers = array();
         $launcher = new System_Launcher($noDrivers);
@@ -184,11 +184,15 @@ class System_LauncherTest extends PHPUnit_Framework_TestCase
      * 
      * @return void
      */
-    public function testLoopingOverGoodCommand()
+    public function testGoodPlatformShouldNotThrowAnyException()
     {
-        $drivers = array(new System_Launcher_Driver_GoodCd);
-        $launcher = new System_Launcher($drivers);
-        $launcher->launch('');
+        try {
+            $drivers = array(new System_Launcher_Driver_GoodCd);
+            $launcher = new System_Launcher($drivers);
+            $launcher->launch('');
+        } catch (Exception $e) {
+            $this->fail();
+        }
     }
 
     
@@ -198,14 +202,14 @@ class System_LauncherTest extends PHPUnit_Framework_TestCase
      * @expectedException System_Launcher_Exception
      * @return void
      */
-    public function testLoopingOverEmptyCommandShouldThrow()
+    public function testLoopingOverEmptyCommandShouldThrowException()
     {
         $drivers = array(new System_Launcher_Driver_BadEmpty);
         $launcher = new System_Launcher($drivers);
         $launcher->launch('');
     }
 
-	public function testMakingSureExceptionExists() {
+	public function testSystemLauncherShouldHaveItsOwnException() {
 		try {
 			throw new System_Launcher_Exception('foo');
 			$this->fail();
