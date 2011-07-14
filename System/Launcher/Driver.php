@@ -27,7 +27,7 @@
  * @link     http://github.com/olleolleolle/System_Launcher
  * @since    File available since Release 0.1.0 
  */
-interface File_Launcher_Driver
+interface System_Launcher_Driver
 {
     /**
      * What is the opener command? 

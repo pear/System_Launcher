@@ -30,7 +30,7 @@ require_once 'System/Launcher/Driver.php';
  * @link     http://github.com/olleolleolle/System_Launcher
  * @since    File available since Release 0.1.0
  */
-class System_Launcher_Driver_BadEmpty implements File_Launcher_Driver
+class System_Launcher_Driver_BadEmpty implements System_Launcher_Driver
 {
     /**
      * Returns a command string template usable with sprintf.
