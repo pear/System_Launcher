@@ -25,10 +25,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
   </lead>
 
   <date>2011-07-14</date>
-  <time>17:15:00</time>
+  <time>23:30:00</time>
 
   <version>
-    <release>0.5.5</release>
+    <release>0.5.6</release>
     <api>0.5.4</api>
   </version>
 
@@ -89,6 +89,22 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <phprelease />
 
   <changelog>
+
+    <release>
+      <version>
+        <release>0.5.6</release>
+        <api>0.5.3</api>
+      </version>
+      <stability>
+        <release>beta</release>
+        <api>beta</api>
+      </stability>
+      <date>2011-07-14</date>
+      <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+      <notes>
+	  - Minor code changes
+      </notes>
+    </release>
     <release>
       <version>
         <release>0.5.5</release>
