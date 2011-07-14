@@ -9,10 +9,6 @@ form, pre-filled with useful values (by just using the query-
 string) when the user has entered for which PEAR package to
 report a bug.
 
-Original author: cweiske
-
-Maintainer: olleolleolle
-
 ## Usage ##
 
     <?php
@@ -27,7 +23,7 @@ Maintainer: olleolleolle
     $launcher->launch('http://pear.php.net', true);
     ?>
 
-These commands are run:
+These operating system commands are run:
 
 *   Windows:        `start <filename>`
 *   Linux
@@ -36,6 +32,7 @@ These commands are run:
   * Gnome:       `gnome-open <filename>`
 *   Mac OS X:         `open <filename>`
 
-# TODO
+## Credits
 
-* Describe use-cases more carefully
+Originally written by cweiske, and now developed by olleolleolle.
+
