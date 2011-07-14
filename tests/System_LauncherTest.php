@@ -20,12 +20,24 @@ require_once 'System/Launcher.php';
 require_once 'System_Launcher_Driver_GoodCd.php';
 require_once 'System_Launcher_Driver_BadEmpty.php';
 
-
-class System_LauncherFake extends System_Launcher {
+/**
+ * Subclass for testing.
+ * 
+ * @category System
+ * @package  System_Launcher
+ * @author   Olle Jonsson <olle.jonsson@gmail.com>
+ * @license  http://www.gnu.org/licenses/lgpl.html LGPL
+ * @link     http://github.com/olleolleolle/System_Launcher
+ */
+class System_LauncherFake extends System_Launcher
+{
     /**
      * Make it a little bit more testable
+     * 
+     * @return void
      */
-    public function detectOS() {
+    public function detectOS()
+    {
         parent::detectOS();
     }
     
@@ -45,7 +57,13 @@ class System_LauncherFake extends System_Launcher {
 class System_LauncherTest extends PHPUnit_Framework_TestCase
 {
     
-    public function testConstructLauncherShouldWork() {
+    /**
+     * Test to see that object was created
+     * 
+     * @return void
+     */
+    public function testConstructLauncherShouldWork()
+    {
         $launcher = new System_Launcher();
         $this->assertObjectHasAttribute('drivers', $launcher);
     }
@@ -113,10 +131,13 @@ class System_LauncherTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function testKdeOperatingSystemShouldBeDetectable() {
+    public function testKdeOperatingSystemShouldBeDetectable()
+    {
         try {
-    		$_ENV['KDE_FULL_SESSION'] = 'true'; // This is what KDE looks like
-            $launcher = new System_LauncherFake(array(new System_Launcher_Driver_KDE));
+            $_ENV['KDE_FULL_SESSION'] = 'true'; // This is what KDE looks like
+            $launcher = new System_LauncherFake(
+                array(new System_Launcher_Driver_KDE)
+            );
             $launcher->detectOs();
         } catch (System_Launcher_Exception $e) {
             $this->fail();
@@ -143,10 +164,13 @@ class System_LauncherTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function testGnomeOperatingSystemShouldBeDetectable() {
+    public function testGnomeOperatingSystemShouldBeDetectable()
+    {
         try {
-    		$_ENV['GNOME_DESKTOP_SESSION_ID'] = 1; // This is what GNOME looks like
-            $launcher = new System_LauncherFake(array(new System_Launcher_Driver_GNOME));
+            $_ENV['GNOME_DESKTOP_SESSION_ID'] = 1; // This is what GNOME looks like
+            $launcher = new System_LauncherFake(
+                array(new System_Launcher_Driver_GNOME)
+            );
             $launcher->detectOs();
         } catch (System_Launcher_Exception $e) {
             $this->fail();
@@ -208,15 +232,21 @@ class System_LauncherTest extends PHPUnit_Framework_TestCase
         $launcher = new System_Launcher($drivers);
         $launcher->launch('');
     }
-
-	public function testSystemLauncherShouldHaveItsOwnException() {
-		try {
-			throw new System_Launcher_Exception('foo');
-			$this->fail();
-		} catch (System_Launcher_Exception $e) {
-			$this->assertEquals('foo', $e->getMessage());
-		}
-	}
+    
+    /**
+     * Make sure there is a package-specific exception
+     *
+     * @return void
+     */
+    public function testSystemLauncherShouldHaveItsOwnException()
+    {
+        try {
+            throw new System_Launcher_Exception('foo');
+            $this->fail();
+        } catch (System_Launcher_Exception $e) {
+            $this->assertEquals('foo', $e->getMessage());
+        }
+    }
     
     
 }
