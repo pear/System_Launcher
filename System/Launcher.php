@@ -78,7 +78,7 @@ class System_Launcher
      */
     public function __construct($drivers=null)
     {
-        if (is_null($drivers)) {
+        if ($drivers === null) {
             $this->drivers = array(
                 new System_Launcher_Driver_Windows,
                 new System_Launcher_Driver_Portland,
