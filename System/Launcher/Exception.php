@@ -16,9 +16,6 @@
  * @since    File available since Release 0.1.0
  */
 
-/** PEAR exceptions */
-require_once 'PEAR/Exception.php';
-
 /**
  * Custom exception.
  *
@@ -30,6 +27,6 @@ require_once 'PEAR/Exception.php';
  * @link     http://github.com/olleolleolle/System_Launcher
  * @since    File available since Release 0.1.0
  */
-class System_Launcher_Exception extends PEAR_Exception
+class System_Launcher_Exception extends Exception
 {
 }
