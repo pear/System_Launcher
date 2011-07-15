@@ -151,7 +151,7 @@ class System_Launcher
      */
     public function launchInBackground($fileName)
     {
-		return $this->launch($fileName, true);
+        return $this->launch($fileName, true);
     }
 
 
