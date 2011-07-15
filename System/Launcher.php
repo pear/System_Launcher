@@ -127,9 +127,9 @@ class System_Launcher
     }
 
     /**
-     * Launches a file.
+     * Launches a file or URL with its associated application.
      *
-     * @param string  $fileName        The file to open
+     * @param string  $fileName        The file or URL to open
      * @param boolean $runInBackground True if the application should be run in the
      * background
      *
@@ -141,4 +141,18 @@ class System_Launcher
         exec($command, $skippedOutput, $status);
         return $status === 0;
     }
+
+    /**
+     * Launches a file or URL in the background.
+     *
+     * @param string  $fileName        The file or URL to open
+     *
+     * @return boolean   True if all was ok, false if there has been a problem
+     */
+    public function launchInBackground($fileName)
+    {
+		return $this->launch($fileName, true);
+    }
+
+
 }
