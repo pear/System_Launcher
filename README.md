@@ -25,12 +25,12 @@ report a bug.
 
 These operating system commands are run:
 
-*   Windows:        `start <filename>`
+*   Windows:        [`start <filename>`](http://www.microsoft.com/resources/documentation/windows/xp/all/proddocs/en-us/start.mspx?mfr=true)
 *   Linux
-  * KDE:         `kfmclient exec <filename>`
-  * With Portland:    `xdg-open <filename>`
-  * Gnome:       `gnome-open <filename>`
-*   Mac OS X:         `open <filename>`
+  * KDE:         [`kfmclient exec <filename>`](http://techbase.kde.org/Development/Tools/Using_kfmclient)
+  * With Portland:    [`xdg-open <filename>`](http://portland.freedesktop.org/xdg-utils-1.0/xdg-open.html)
+  * Gnome:       [`gnome-open <filename>`](http://embraceubuntu.com/2006/12/16/gnome-open-open-anything-from-the-command-line/)
+*   Mac OS X:         [`open <filename>`](http://www.manpagez.com/man/1/open/osx-10.6.php)
 
 ## Credits
 
