@@ -40,7 +40,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
 
   <notes>
-  - Agile Documentation for PHPUnit tests
+   - Initial PEAR release
+   - Begun using PHP 5.3 idioms
   </notes>
 
   <contents>
