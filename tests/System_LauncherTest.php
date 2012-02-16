@@ -17,8 +17,8 @@
  */
 
 require_once 'System/Launcher.php';
-require_once 'System_Launcher_Driver_GoodCd.php';
-require_once 'System_Launcher_Driver_BadEmpty.php';
+require_once __DIR__ . '/System_Launcher_Driver_GoodCd.php';
+require_once __DIR__ . '/System_Launcher_Driver_BadEmpty.php';
 
 /**
  * Subclass for testing.

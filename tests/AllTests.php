@@ -20,9 +20,8 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
     define('PHPUnit_MAIN_METHOD', 'System_Launcher_AllTests::main');
 }
 
-require_once 'PHPUnit/TextUI/TestRunner.php';
-require_once 'System_LauncherTest.php';
- 
+require_once 'PHPUnit/Autoload.php';
+
 /**
  * PHPUnit tests for System_Launcher
  *
@@ -61,7 +60,13 @@ class System_Launcher_AllTests
      */
     public static function suite()
     {
-        return new PHPUnit_Framework_TestSuite('System_LauncherTest');
+        $suite = new PHPUnit_Framework_TestSuite('System_Launcher tests');
+        /** Add testsuites, if there are any */
+        $suite->addTestFiles(
+            glob(__DIR__ . '/System_LauncherTest.php', GLOB_BRACE)
+        );
+
+        return $suite;
     }
     
     // }}}
