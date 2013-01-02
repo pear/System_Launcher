@@ -72,6 +72,11 @@ class System_Launcher
     protected $drivers;
 
     /**
+    * Command output string
+    * @var string
+    */
+    protected $lastOutput;
+    /**
      * Sets up a list of operating system checkers.
      *
      * @param array $drivers List of System_Launcher_Driver checkers.
@@ -137,21 +142,47 @@ class System_Launcher
      */
     public function launch($fileName, $runInBackground=false)
     {
-        $command = sprintf($this->getCommand($runInBackground), $fileName);
-        exec($command, $skippedOutput, $status);
+        $command = sprintf(
+            $this->getCommand($runInBackground), $this->cleanFileName($fileName)
+        );
+        exec($command, $this->lastOutput, $status);
         return $status === 0;
+    }
+
+    /**
+     * Removes initial dashes to avoid injection of command parameters.
+     *
+     * @param string $fileName Possibly malicious filename
+     *
+     * @return string Cleaned filename
+     */
+    protected function cleanFilename($fileName)
+    {
+        $fileName = preg_replace('%^-+%', '', $fileName);
+        return escapeshellarg($fileName);
     }
 
     /**
      * Launches a file or URL in the background.
      *
-     * @param string  $fileName        The file or URL to open
+     * @param string $fileName The file or URL to open
      *
-     * @return boolean   True if all was ok, false if there has been a problem
+     * @return boolean True if all was ok, false if there has been a problem
      */
     public function launchInBackground($fileName)
     {
         return $this->launch($fileName, true);
+    }
+
+
+    /**
+     * Returns last command output as lines of text.
+     *
+     * @return array
+     */
+    public function getLastOutput()
+    {
+        return $this->lastOutput;
     }
 
 

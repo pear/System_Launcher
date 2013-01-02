@@ -18,6 +18,7 @@
 
 require_once 'System/Launcher.php';
 require_once __DIR__ . '/System_Launcher_Driver_GoodCd.php';
+require_once __DIR__ . '/System_Launcher_Driver_GoodLs.php';
 require_once __DIR__ . '/System_Launcher_Driver_BadEmpty.php';
 
 /**
@@ -246,6 +247,24 @@ class System_LauncherTest extends PHPUnit_Framework_TestCase
         } catch (System_Launcher_Exception $e) {
             $this->assertEquals('foo', $e->getMessage());
         }
+    }
+
+
+    /**
+     * Make sure options can not be introduced in filename input.
+     *
+     * @issue https://github.com/pear/System_Launcher/issues/1
+     * @return void
+     */
+    public function testOptionsAreStripped()
+    {
+        $launcher = new System_Launcher(array(new System_Launcher_Driver_GoodLs));
+        $returnStatus = $launcher->launch('-Afg .');
+        $this->assertFalse($returnStatus);
+        $this->assertEmpty(
+            $launcher->getLastOutput(),
+            'This should have failed, producing no output.'
+        );
     }
     
     
