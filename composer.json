@@ -13,7 +13,7 @@
     ],
     "autoload": {
         "psr-0": {
-            "System_Launcher": "./"
+            "System": "./"
         }
     },
     "description": "Convenient wrapper for command-line invocation of 'open \"http://github.com\"' for Windows, OS X and Linux.",
