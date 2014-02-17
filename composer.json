@@ -1,0 +1,36 @@
+{
+    "authors": [
+        {
+            "email": "cweiske@cweiske.de",
+            "name": "Christian Weiske",
+            "role": "Lead"
+        },
+        {
+            "email": "olle.jonsson@gmail.com",
+            "name": "Olle Jonsson",
+            "role": "Lead"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "System_Launcher": "./"
+        }
+    },
+    "description": "Convenient wrapper for command-line invocation of 'open \"http://github.com\"' for Windows, OS X and Linux.",
+    "include-path": [
+        "./"
+    ],
+    "license": "LGPL",
+    "name": "pear/system_launcher",
+    "support": {
+        "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=System_Launcher",
+        "source": "https://github.com/pear/System_Launcher"
+    },
+    "type": "library",
+    "require": {
+        "pear/pear_exception": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    }
+}
