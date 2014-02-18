@@ -11,6 +11,7 @@ report a bug.
 
 ## Usage ##
 
+```php
     <?php
     require_once 'System/Launcher.php';
 
@@ -22,6 +23,7 @@ report a bug.
     // or a URL
     $launcher->launch('http://pear.php.net', true);
     ?>
+```
 
 These operating system commands are run:
 
